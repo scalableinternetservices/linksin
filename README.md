@@ -24,6 +24,7 @@ Things you may want to cover:
 
 CS188 - Scalable Internet Services
 TEAM NAME: LINKSIN
+
 Amy Tu
 
 Junhong Wang
