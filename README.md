@@ -33,6 +33,8 @@ Omar Tleimat
 
 Cheuk Yin Phipson Lee
 
+Here is a guide for editing this readme https://guides.github.com/features/mastering-markdown/
+
 GITHUB ACCOUNT NAME: https://github.com/scalableinternetservices/linksin
 
 SECTION TIME: Friday 2PM - 3:50PM
