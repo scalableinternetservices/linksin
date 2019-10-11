@@ -29,7 +29,10 @@ Amy Tu
 
 Junhong Wang
 
-Omar Tleimat 
+Omar Tleimat
+
+
+![image](team/omars_photo.jpg)
 
 Cheuk Yin Phipson Lee
 
