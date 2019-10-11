@@ -33,3 +33,10 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Ignore RubyMine related files
+.idea
+
+# Ignore all lock files
+Gemfile.lock
+yarn.lock
