@@ -1,11 +1,28 @@
 <% provide(:title, @user.name) %>
-<div class="LI_LoginForm">
-  <aside class="LI_LoginInput">
-    <section class="user_info">
-      <h3>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h3>
-    </section>
-  </aside>
+<div class="LI_MultiDivContainer">
+  <div class="LI_UserShowHead">
+    <%= gravatar_for @user %>
+    <div>
+      <p><%= @user.name %></p>
+      <p>description of <%= @user.name %> goes here...</p>
+    </div>
+  </div>
+  <div>
+    <h4>Find Gamers</h4>
+    <div class="LI_Gamer">
+    </div>
+  </div>
+  <div>
+    <h4>Events</h4>
+    <% for i in 1..10 %>
+      <div class="LI_Event">
+        <div class="LI_EventContent">
+          <img src="https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-0/c0.97.960.347a/p180x540/68410646_2817497658278911_3615990647913185280_o.jpg?_nc_cat=103&_nc_oc=AQmUoF5fzSGwZhDah0n3uW5crJ8i20gajD2gpcyQHitCCkwtEKsnbR7j9EQISD7qS8TC1xwEYGKllW9IoSPnEvHT&_nc_ht=scontent-lax3-1.xx&oh=e7fafe77964ece28cfdfa1e0c58f7e6c&oe=5E2577F7" />
+          <p>Event Title</p>
+          <p>Event Description</p>
+          <p>Event Date</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
