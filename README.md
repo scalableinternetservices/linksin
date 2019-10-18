@@ -5,6 +5,7 @@
 
 * Team Members
   * Amy Tu
+  <img src="team/amys_photo.jpg" width="128">
   * Junhong Wang
   <img src="team/junhong.jpg" width="128">
   
