@@ -1,0 +1,9 @@
+language: ruby
+rvm:
+- 2.5.7
+
+
+script:
+ - bundle install
+ - bundle exec rails db:migrate
+
