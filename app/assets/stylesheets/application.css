@@ -113,38 +113,36 @@ svg {
 
 /* PART 1 - LinksIn Menu */
 .LI_Header_Main {
-    top: 0;
     width: 100%;
     height: 20%;
     padding: 1.5%;
-    position: fixed;
-    display: grid;
+    display: flex;
     align-items: center;
-    grid-template-columns: 1fr 8fr 2fr;
-    grid-template-rows: 1fr;
-    z-index: 1;
+    justify-content: space-between;
+}
+
+.LI_Space {
+    flex-grow: 1;
 }
 
 .LI_Logo {
-    height: 100%; 
-    width: 100%; 
-    margin: auto; 
-    align-items: center; 
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    align-items: center;
     position: relative;
 }
 
 .LI_MenuItems {
-    width: 100%;
-    height: 100%;
-    display: grid;
+    display: flex;
     align-items: center;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
+
 }
 
 .LI_Nav {
     display: flex;
     width: 100%;
+    margin: 1rem;
     height: fit-content;
     align-items: center;
     justify-items: center;
@@ -186,7 +184,7 @@ svg {
     justify-content: center;
     align-items: center;
 }
-  
+
 .LI_Button {
     border-radius: 5px;
     border: 0;
@@ -251,3 +249,9 @@ svg {
 
 /* LI MESSAGES */
 .message-3{fill:#fff;stroke:#fff;stroke-miterlimit:10;stroke-width:7px}
+
+/* drop down */
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+}
