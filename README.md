@@ -7,6 +7,7 @@
   * Amy Tu
   * Junhong Wang
   <img src="team/junhong.jpg" width="128">
+  
   * Omar Tleimat 
   <img src="team/omars_photo.jpg" width="128">
   
