@@ -1,8 +1,7 @@
 <% provide(:title, "Log in") %>
-<h1>Log in</h1>
-
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
+<div class="LI_LoginForm">
+<h3>Log in</h3>
+  <div class="LI_LoginInput">
     <%= form_for(:session, url: login_path) do |f| %>
 
       <%= f.label :email %>
@@ -16,7 +15,7 @@
         <span>Remember me on this computer</span>
       <% end %>
 
-      <%= f.submit "Log in", class: "btn btn-primary" %>
+      <%= f.submit "Log in", class: "LI_Button" %>
     <% end %>
 
     <p>New user? <%= link_to "Sign up now!", signup_path %></p>
