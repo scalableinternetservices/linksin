@@ -301,7 +301,7 @@ DEPENDENCIES
   spring (= 2.1.0)
   spring-watcher-listen (= 2.0.1)
   sqlite3 (= 1.4.1)
-  travis
+  travis (= 1.8.10)
   turbolinks (= 5.2.0)
   tzinfo-data
   web-console (= 4.0.1)
@@ -309,4 +309,4 @@ DEPENDENCIES
   webpacker (= 4.0.7)
 
 BUNDLED WITH
-   1.17.2
+   1.17.3
