@@ -1,52 +1,56 @@
 <% provide(:title, @user.name) %>
-<div class="LI_MultiDivContainer">
-  <div class="LI_UserShowHead">
-    <%= gravatar_for @user %>
-    <div>
-      <p><%= @user.name %></p>
-      <p>description of <%= @user.name %> goes here...</p>
-    </div>
-  </div>
-  <div>
-    <h4>Find Gamers</h4>
+<div class="LI_UserShow">
+<!--  <div class="LI_UserShowHead">-->
+    <%#= gravatar_for @user %>
+<!--    <div>-->
+<!--      <p><%#= @user.name %></p>-->
+<!--      <p>description of <%#= @user.name %> goes here...</p>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div>-->
     <div class="LI_Gamer">
-      <div class="demo__card-cont">
-        <div class="demo__card">
-          <div class="demo__card__top blue">
-            <div class="demo__card__img"></div>
-            <p class="demo__card__name">Hungry gamer 2</p>
-          </div>
-          <div class="demo__card__btm">
-            <p class="demo__card__we">Whatever</p>
-          </div>
-          <div class="demo__card__choice m--reject"></div>
-          <div class="demo__card__choice m--like"></div>
-          <div class="demo__card__drag"></div>
-        </div>
-        <div class="demo__card">
-          <div class="demo__card__top purple">
-            <div class="demo__card__img"></div>
-            <p class="demo__card__name">Hungry gamer</p>
-          </div>
-          <div class="demo__card__btm">
-            <p class="demo__card__we">Whatever</p>
-          </div>
-          <div class="demo__card__choice m--reject"></div>
-          <div class="demo__card__choice m--like"></div>
-          <div class="demo__card__drag"></div>
-        </div>
+      <div class="LI_SideNav">
+        <%= link_to "Log out", logout_path, method: :delete %>
       </div>
-      <div class="LI_GamerActionButtonContainer">
-        <button class="LI_GamerActionButton">
-          <i class="fas fa-times fa-2x secondary"></i>
-        </button>
-        <button class="LI_GamerActionButton">
-          <i class="fas fa-heart fa-2x primary"></i>
-        </button>
+      <div class="LI_SideNavMain">
+        <div class="demo__card-cont">
+          <div class="demo__card">
+            <div class="demo__card__top blue">
+              <div class="demo__card__img"></div>
+              <p class="demo__card__name">Hungry gamer 2</p>
+            </div>
+            <div class="demo__card__btm">
+              <p class="demo__card__we">Whatever</p>
+            </div>
+            <div class="demo__card__choice m--reject"></div>
+            <div class="demo__card__choice m--like"></div>
+            <div class="demo__card__drag"></div>
+          </div>
+          <div class="demo__card">
+            <div class="demo__card__top purple">
+              <div class="demo__card__img"></div>
+              <p class="demo__card__name">Hungry gamer</p>
+            </div>
+            <div class="demo__card__btm">
+              <p class="demo__card__we">Whatever</p>
+            </div>
+            <div class="demo__card__choice m--reject"></div>
+            <div class="demo__card__choice m--like"></div>
+            <div class="demo__card__drag"></div>
+          </div>
+        </div>
+        <div class="LI_GamerActionButtonContainer">
+          <button class="LI_GamerActionButton">
+            <i class="fas fa-times fa-2x secondary"></i>
+          </button>
+          <button class="LI_GamerActionButton">
+            <i class="fas fa-heart fa-2x primary"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
-  <div>
+<!--  <div>-->
 <!--    <h4>Events</h4>-->
     <%# for i in 1..10 %>
 <!--      <div class="LI_Event">-->
@@ -58,5 +62,5 @@
 <!--        </div>-->
 <!--      </div>-->
     <%# end %>
-  </div>
+<!--  </div>-->
 </div>
