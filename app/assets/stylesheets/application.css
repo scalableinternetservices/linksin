@@ -484,8 +484,24 @@ svg {
   top: 0;
   left: 0;
   border: 1px solid #eaeaea;
-  padding-top: 20px;
   background: white;
+}
+
+.LI_SideNavHeader {
+  background: #ff2e63;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.LI_SideNavHeaderTitle {
+  color: white;
+}
+
+.LI_SideNavHeader img {
+  border-radius: 50%;
 }
 
 .LI_SideNavMain {
@@ -495,4 +511,48 @@ svg {
 .LI_SwipeBody {
   overflow: hidden;
   background: rgb(245, 247, 250);
+}
+
+.tab {
+  display: inline-flex;
+  justify-content: space-between;
+  height: 10%;
+}
+
+.LI_TabContent {
+  overflow-y: auto;
+  height: 80%;
+}
+
+.tab button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.2s;
+}
+
+.tab button.active {
+  color: #ff2e63;
+}
+
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border-top: none;
+}
+
+.tabcontent {
+  animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+/* Go from zero to full opacity */
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.LI_MessageListItem {
+  display: block;
+  height: 80px;
 }
