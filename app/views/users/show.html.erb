@@ -1,7 +1,19 @@
 <% provide(:title, @user.name) %>
 <div class="LI_UserShow">
-      <%= render 'layouts/accountnav' %>
+  <% if (current_user == User.find(params[:id])) %>
+    <%= render 'layouts/accountnav' %>
+  <% else %>
+    <div class="LI_UserShowHead">
+      <%= gravatar_for @user %>
+      <div>
+        <h3><%= @user.name %></h3>
+        <p>description of <%= @user.name %> goes here...</p>
+      </div>
+    </div>
+  <% end %>
 </div>
+<% if (current_user == User.find(params[:id])) %>
 <script>
     openTab(event, 'SwipeCards');
 </script>
+<% end %>

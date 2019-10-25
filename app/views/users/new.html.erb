@@ -1,23 +1,11 @@
 <% provide(:title, 'Sign up') %>
-<div class="LI_LoginForm">
-<h3>Sign up</h3>
-  <div class="LI_LoginInput">
-    <%= form_for(@user, url: signup_path) do |f| %>
-      <%= render 'shared/error_messages' %>
-
-      <%= f.label :name %>
-      <%= f.text_field :name, class: 'form-control' %>
-
-      <%= f.label :email %>
-      <%= f.email_field :email, class: 'form-control' %>
-
-      <%= f.label :password %>
-      <%= f.password_field :password, class: 'form-control' %>
-
-      <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation, class: 'form-control' %>
-
-      <%= f.submit "Create my account", class: "btn btn-primary" %>
-    <% end %>
+<% provide(:button_text, 'Create my account') %>
+<% provide(:url, signup_path) %>
+<div class="LI_Body">
+  <div class="LI_LoginForm">
+  <h3>Sign up</h3>
+    <div class="LI_LoginInput">
+      <%= render 'form' %>
+    </div>
   </div>
 </div>
