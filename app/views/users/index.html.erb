@@ -1,23 +1,22 @@
-<h5>Listing Users</h5>
-<table>
-  <thead>
-  <tr class="LI_TableRow">
-    <th>Id</th>
-    <th>Name</th>
-    <th>Email</th>
-    <th colspan="3">Actions</th>
-  </tr>
-  </thead>
-
-  <% @users.each do |user| %>
+<% provide(:title, 'Listing users') %>
+<div class="LI_Body">
+  <h3>Listing Users</h3>
+  
+  <%= will_paginate @Users %>
+  
+  <table>
+    <thead>
     <tr class="LI_TableRow">
-      <td><%= user.id %></td>
-      <td><%= user.name %></td>
-      <td><%= user.email %></td>
-      <td><%= link_to 'Show', user %></td>
-      <td><%= link_to 'Edit', edit_user_path(user) %></td>
-      <td><%= link_to 'Destroy', user, method: :delete,
-                      data: { confirm: 'Are you sure?' } %></td>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th colspan="3">Actions</th>
     </tr>
-  <% end %>
-</table>
+    </thead>
+  
+    <!--If current user is an admin-->
+    <%= render @users %>
+  </table>
+  
+  <%= will_paginate @Users %>
+</div>
