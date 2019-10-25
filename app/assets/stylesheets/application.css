@@ -208,7 +208,7 @@ svg {
     grid-gap: 5%;
 }
 
-.LI_OverviewImg, .LI_tablinks {
+.LI_tablinks {
     align-items: center;
     justify-items: center;
     width: 50px;
