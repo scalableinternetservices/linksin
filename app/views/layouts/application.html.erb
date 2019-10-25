@@ -2,28 +2,28 @@
 <html>
   <head>
     <title><%= full_title(yield(:title)) %></title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js"></script>
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/WPVG_icon_2016.svg/1024px-WPVG_icon_2016.svg.png" />
     <script src="https://kit.fontawesome.com/9d2394a409.js" crossorigin="anonymous"></script>
     <script src="../../javascript/packs/swipe.js" crossorigin="anonymous"></script>
     <%= render 'layouts/rails_default' %>
     <%= render 'layouts/shim' %>
   </head>
+  <body>
+  <%= render 'layouts/header' %>
   <% if logged_in? %>
-    <body class="LI_SwipeBody">
-      <%= yield %>
-    </body>
+    <%= yield %>
   <% else %>
-    <body>
-      <%= render 'layouts/header' %>
-      <div class="LI_Body">
-        <% flash.each do |message_type, message| %>
-          <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
-        <% end %>
-        <%= yield %>
-      </div>
-      <%= render 'layouts/footer' %>
-      <!--<%= debug(params) if Rails.env.development? %>-->
-    </body>
+    <div class="LI_Body">
+      <% flash.each do |message_type, message| %>
+        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+      <% end %>
+      <%= yield %>
+    </div>
   <% end %>
-
+<%= render 'layouts/footer' %>
+</body>
 </html>
