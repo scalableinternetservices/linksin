@@ -14,6 +14,7 @@
   <img src="team/omars_photo.jpg" width="128">
   
   * Cheuk Yin Phipson Lee
+  <img src="team/phipson.jpg" width="128">
 
 # Things We Want to Cover in The Future
 * Ruby version
