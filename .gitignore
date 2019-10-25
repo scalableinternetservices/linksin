@@ -40,3 +40,8 @@ yarn-debug.log*
 # Ignore all lock files
 Gemfile.lock
 yarn.lock
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
