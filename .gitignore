@@ -38,8 +38,8 @@ yarn-debug.log*
 .idea
 
 # Ignore all lock files
-Gemfile.lock
-yarn.lock
+#Gemfile.lock
+#yarn.lock
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
