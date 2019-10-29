@@ -1,9 +1,27 @@
-<% for i in 1..10 %>
-<div class="LI_MessageListItem">
-<%#= gravatar_for @user %>
-<div>
-<div>Name</div>
-<div>Most recent message</div>
+<div class="columns" style="height: calc(92vh)">
+  <div class="column is-3" style="overflow: auto; border-right: 1px solid lightgray">
+    <% for i in 1..10 %>
+      <div class="columns is-vcentered" style="margin: 0.4rem">
+        <div class="column is-3">
+          <figure class="image">
+            <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+          </figure>
+        </div>
+        <div class="column">
+          <strong>Hungry gamer <%= i %></strong>
+          <div>Most recent message goes here...</div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="column">
+    <div style="position: absolute; bottom: 0; width: 73%">
+      <div class="field has-addons has-addons-fullwidth">
+        <div class="control">
+          <input class="input" type="text" placeholder="Text input">
+        </div>
+        <a class="button" style="background: #08d9d6">Send</a>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-<% end %>
