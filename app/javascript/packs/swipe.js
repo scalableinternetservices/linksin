@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     var animating = false;
     var cardsCounter = 0;
-    var numOfCards = 6;
+    var numOfCards = 2;
     var decisionVal = 80;
     var pullDeltaX = 0;
     var deg = 0;
