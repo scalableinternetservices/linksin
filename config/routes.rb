@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'events/new'
   resources :microposts
   root   'static_pages#home'
   get    '/help',    to: 'static_pages#help'
