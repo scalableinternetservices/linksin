@@ -1,0 +1,157 @@
+/* PART 1 - LinksIn Menu */
+.LI_Header_Main {
+  width: 100%;
+  padding: 1.5%;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 10fr 2fr;
+  grid-gap: 5%;
+  position: fixed;
+  z-index: 99999;
+  background: white;
+}
+
+.LI_Space {
+  flex-grow: 1;
+}
+
+.LI_Logo {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  align-items: center;
+  position: relative;
+}
+
+.LI_MenuItems {
+  display: flex;
+  align-items: center;
+
+}
+
+.LI_Nav {
+  display: flex;
+  width: 100%;
+  margin: 1rem;
+  height: fit-content;
+  align-items: center;
+  justify-items: center;
+}
+
+.LI_UserNav {
+  display: grid;
+  width: 100%;
+  height: fit-content;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+}
+
+
+/* LI BODY */
+.LI_Body {
+  width: 100%;
+  height: 100%;
+}
+
+.LI_Landing {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  text-align: center;
+}
+
+.LI_Footer {
+  display: grid;
+  width: 100%;
+  padding: 2% 10%;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+.LI_Button {
+  border-radius: 5px;
+  border: 0;
+  -webkit-appearance: none;
+  width: 100%;
+  padding: 2%;
+  height: fit-content;
+  background-color: #88304e;
+  color: #ffffff;
+  text-align: center;
+}
+
+.LI_Button:Hover {
+  background-color: #e23e57;
+}
+
+.LI_Overview {
+  width: 100%;
+  padding: 5%;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5%;
+}
+
+.LI_tablinks {
+  align-items: center;
+  justify-items: center;
+  width: 50px;
+  height: 100px;
+}
+
+.LI_tablinks {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.LI_OverviewElement {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-rows: 3fr 1fr;
+  grid-template-columns: 1fr;
+  grid-gap: 10%;
+}
+
+/* LI LOGIN */
+.LI_LoginForm {
+  max-width: 350px;
+  margin: 0 auto;
+}
+
+.LI_LoginInput {
+  width: 100%;
+}
+
+/* LI LOGO */
+.logo-3{stroke:#F0FFF3;stroke-miterlimit:10;fill:#F0FFF3;stroke-width:7px}
+
+#menu-main, #main-icon{
+  cursor: pointer;
+}
+
+/* LI HEART */
+.heart-3{fill:#ff3939}
+
+/* LI EVENT */
+.event-1, .event-2{fill:#ff3939}
+.event-3{fill:#3bedff}
+.event-4{fill:#2cb1b7}
+
+.event-1 {
+  opacity: 0;
+}
+
+/* LI MESSAGES */
+.message-3{fill:#fff;stroke:#fff;stroke-miterlimit:10;stroke-width:7px}
