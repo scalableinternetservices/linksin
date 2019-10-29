@@ -1,2 +1,13 @@
-            <h3>Matches</h3>
-            <p>You currently have no matches.</p>
+<% for i in 0...5 %>
+  <div class="columns">
+  <% for j in 0...3 %>
+    <div class="column is-one-third">
+      <figure class="image is-128x128">
+        <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+      </figure>
+      Name
+    </div>
+  <% end %>
+  </div>
+<% end %>
+
