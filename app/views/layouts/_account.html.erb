@@ -9,7 +9,8 @@
   </div>
   <div class="dropdown-menu" id="dropdown-menu" role="menu">
     <div class="dropdown-content">
-      <%= link_to "Update", edit_user_path(current_user), :class => "dropdown-item" %>
+      <%= link_to "Profile", profile_path(current_user.profile), :class => "dropdown-item" %>
+      <%= link_to "Settings", edit_user_path(current_user), :class => "dropdown-item" %>
       <hr class="dropdown-divider">
       <%= link_to "Log out", logout_path, method: :get, :class => "dropdown-item" %>
     </div>

@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_one :profile, dependent: :destroy
+  after_create :build_profile
   attr_accessor :remember_token
   before_save { self.email = email.downcase }
   validates :name,  presence: true, length: { maximum: 50 }
@@ -35,5 +37,9 @@ class User < ApplicationRecord
   # Forgets a user.
   def forget
     update_attribute(:remember_digest, nil)
+  end
+  
+  def build_profile
+    Profile.create(user: self) # Associations must be defined correctly for this syntax, avoids using ID's directly.
   end
 end
