@@ -37,6 +37,17 @@
 LinksIn is a social networking app that builds upon the mechanics of networking on Tinder to create an accessible, sociable media outlet for the gaming community. As gamers, users can connect to LinksIn through their existing gaming accounts, swipe through other gamers and players using the Tinder card-swiping mechanism, and connect with new players that might be in the same game as them. Additionally, with LinksIn, players can also create LAN events and invite people within their 'card community' to join and coordinate gaming events together.
 
 # Documentation
+## Scrum Story
+* As a gamer, I want to be able to link my accounts from the games I play, such as Steam, Blizzard, Gmail, League, Nintendo, in order to show people what games I play, and also directly add people as friends through these gaming accounts.
+
+* As a gamer, I want to be able to share a description of the games I play, and what people I would be interested in playing with, in order to find gamers to play with, and also have gamers invite me.
+
+* As a gamer, I want to host LAN events that can be viewed by people I have connected with, and also attend LAN events that are hosted by people in my network, in order to play games with everyone.
+
+* As a gamer, when I log in, I want to be directed to the ‘card page’ where I can swipe through players, in order to filter through the players I may or may not be interested in playing with.
+
+* As a gamer, I want to be able to filter my search results based on the games I play, the frequency at which players play these games, and the level of experience players have with these games, in order to specify the type of people I want to connect with.
+
 ## Design
 * Logo 
 <img src="team/logo.png" width="128">
