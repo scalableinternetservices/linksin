@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :microposts
+  has_many :members
+  has_many :events, through: :members
   attr_accessor :remember_token
   before_save { self.email = email.downcase }
   validates :name,  presence: true, length: { maximum: 50 }
