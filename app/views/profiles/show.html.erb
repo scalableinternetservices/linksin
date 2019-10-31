@@ -1,0 +1,13 @@
+<% provide(:title, @user.name) %>
+<div class="LI_UserShow">
+  <div class="LI_UserShowHead">
+    <%= gravatar_for @user %>
+    <div>
+      <h3><%= @user.name %></h3>
+      <p><%= @profile.description %></p>
+    </div>
+    <% if current_user == @user %>
+      <%= link_to 'Edit', edit_profile_path(@profile) %>
+    <% end %>
+  </div>
+</div>

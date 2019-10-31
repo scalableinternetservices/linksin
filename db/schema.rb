@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_31_025232) do
+ActiveRecord::Schema.define(version: 2019_10_31_002621) do
 
   create_table "events", force: :cascade do |t|
     t.string "description"
@@ -28,11 +28,37 @@ ActiveRecord::Schema.define(version: 2019_10_31_025232) do
     t.index ["user_id"], name: "index_members_on_user_id"
   end
 
-  create_table "microposts", force: :cascade do |t|
-    t.text "content"
-    t.integer "user_id"
+  create_table "conversations", force: :cascade do |t|
+    t.integer "send_id"
+    t.integer "recv_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "description"
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "body"
+    t.integer "conversation_id", null: false
+    t.integer "user_id", null: false
+    t.boolean "read", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -46,6 +72,7 @@ ActiveRecord::Schema.define(version: 2019_10_31_025232) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "members", "events"
-  add_foreign_key "members", "users"
+  add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
+  add_foreign_key "profiles", "users"
 end

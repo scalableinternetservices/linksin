@@ -1,14 +1,22 @@
 class User < ApplicationRecord
+  has_one :profile, dependent: :destroy
+  has_many :conversations, :foreign_key => :send_id
+  
+  after_create :build_profile
+
   has_many :microposts
   has_many :members
   has_many :events, :through => :members
   attr_accessor :remember_token
-  before_save { self.email = email.downcase }
+  
   validates :name,  presence: true, length: { maximum: 50 }
+  
+  before_save { self.email = email.downcase }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
+                    
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
@@ -38,5 +46,9 @@ class User < ApplicationRecord
   # Forgets a user.
   def forget
     update_attribute(:remember_digest, nil)
+  end
+  
+  def build_profile
+    Profile.create(user: self) # Associations must be defined correctly for this syntax, avoids using ID's directly.
   end
 end

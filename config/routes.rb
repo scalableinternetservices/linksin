@@ -9,9 +9,12 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   get    '/logout',  to: 'sessions#destroy'
+  get    '/matches', to: 'conversations#matches'
   resources :users
-  resources :microposts
+  resources :profiles
   resources :events
-  resources :matches
-  resources :messages
+  resources :conversations do
+    get "matches"
+    resources :messages
+  end
 end
