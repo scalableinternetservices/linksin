@@ -3,7 +3,10 @@ class User < ApplicationRecord
   has_many :conversations, :foreign_key => :send_id
   
   after_create :build_profile
-  
+
+  has_many :microposts
+  has_many :members
+  has_many :events, :through => :members
   attr_accessor :remember_token
   
   validates :name,  presence: true, length: { maximum: 50 }
