@@ -1,1 +1,36 @@
-<%= render 'layouts/messages' %>
+
+<div class="LI_Body">
+  <div class="columns is-vcentered">
+    <div class="column">
+        <% if @over_ten %>
+          <%= link_to 'Show Previous', '?m=all' %>
+        <% end %>
+      <% @messages.each do |message| %>
+        <% if message.body %>
+          <% user = User.find(message.user_id) %>
+          <div class="item">
+            <div class="column">
+              <strong><%= user.name %></strong> <%= message.message_time %>
+              <div><%= message.body %></div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  
+  
+    <div class="column">
+      <div>
+        <div>
+          <%= form_for [@conversation, @message] do |f| %>
+            <div class="control">
+              <%= f.text_area :body, class: "form-control", placeholder: "Type message here..." %>
+            </div>
+              <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
+              <%= f.submit "Send", class: "button button-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

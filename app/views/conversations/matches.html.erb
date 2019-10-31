@@ -1,0 +1,38 @@
+<!--<% for i in 0...5 %>-->
+<!--  <div class="columns">-->
+<!--  <% for j in 0...3 %>-->
+<!--    <div class="column is-one-third">-->
+<!--      <figure class="image is-128x128">-->
+<!--        <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">-->
+<!--      </figure>-->
+<!--      Name-->
+<!--    </div>-->
+<!--  <% end %>-->
+<!--  </div>-->
+<!--<% end %>-->
+
+<div class="columns">
+<!--    <div class="column is-one-third">-->
+<!--      <figure class="image is-128x128">-->
+<!--        <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">-->
+<!--      </figure>-->
+<!--      Name-->
+<!--    </div>-->
+  <% @conversations.each do |conversation| %>
+    <div class="column is-one-third">
+      <% if conversation.send_id == current_user.id || conversation.recv_id == current_user.id %>
+        <% if conversation.send_id == current_user.id %>
+          <% recipient = User.find(conversation.recv_id) %>
+        <% else %>
+          <% recipient = User.find(conversation.send_id) %>
+        <% end %>
+        
+        <%= gravatar_for recipient, size: 128  %>
+        <strong><%= link_to recipient.name, recipient.profile %></strong>
+        <div><%= link_to 'Message', conversations_path(send_id: current_user.id, recv_id: recipient.id), method: 'post' %></div>
+        
+      <% end %>
+    </div>
+  <% end %>
+  
+</div>
