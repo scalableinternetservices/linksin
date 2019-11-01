@@ -1,11 +1,15 @@
 <footer class="footer" style="background: white">
-  <small>
-    The premiere networking app for gamers.
-  </small>
-  <nav>
-    <ul>
-      <li><%= link_to "Contact", contact_path %></li>
-      <li><a href="https://github.com/scalableinternetservices/linksin">Source</a></li>
-    </ul>
-  </nav>
+  <div class="columns">
+    <div class="column is-four-fifths">
+      <small>
+        The premiere networking app for gamers.
+      </small>
+    </div>
+    <div class="column">
+      <%= link_to "Contact", contact_path %>
+    </div>
+    <div class="column">
+      <a href="https://github.com/scalableinternetservices/linksin">Source</a>
+    </div>
+  </div>
 </footer>

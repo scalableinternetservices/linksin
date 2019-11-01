@@ -12,10 +12,13 @@
     <% flash.each do |message_type, message| %>
       <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
     <% end %>
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+      <% unless logged_in? %>
+        <%= render 'layouts/footer' %>
+      <% end %>
+    </div>
   </div>
-  <% unless logged_in? %>
-    <%=  render 'layouts/footer'  %>
-  <% end %>
+
 </body>
 </html>
