@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update, :show]
   before_action :admin_user,     only: :destroy
+  helper_method :randomShow
 
   def index
    @users = User.paginate(page: params[:page])
@@ -9,6 +10,18 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    randomShow
+  end
+
+  def randomShow
+    count = User.count
+    @userlist = Array.new(0)
+    (0..count).step(1) do |item|
+      rand_offset = rand(count)
+      @userlist.push(User.offset(rand_offset).first)
+    end
+    puts 'DEBUGGING CARDS'
+    puts @userlist
   end
 
   def new
