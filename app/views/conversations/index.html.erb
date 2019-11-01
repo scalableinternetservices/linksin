@@ -49,7 +49,7 @@
         </div>
         <div class="column">
           <strong><%= link_to recipient.name, conversation_messages_path(conversation)%></strong>
-          <div><%=conversation.messages.last.body %></div>
+          <div><em><%= User.find(conversation.messages.last.user_id).name %>: </em><%=conversation.messages.last.body %></div>
         </div>
       </div>
         

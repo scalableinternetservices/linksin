@@ -10,15 +10,19 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @userlist = randomShow(@user)
   end
 
-  def randomShow
+  def randomShow(user)
     count = User.count
     @userlist = Array.new(0)
     (0..count).step(1) do |item|
-      rand_offset = rand(count)
-      @userlist.push(User.offset(rand_offset).first)
+      rand_offset = rand(count)+1
+      if rand_offset != user.id
+        @userlist.push(User.find(rand_offset))
+      end
     end
+    @userlist
   end
 
   def new
