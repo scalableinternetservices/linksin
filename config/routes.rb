@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   get    '/logout',  to: 'sessions#destroy'
   get    '/matches', to: 'conversations#matches'
+  post    '/match',  to: 'conversations#create'
+
   resources :users
   resources :profiles
   resources :events
@@ -17,4 +19,5 @@ Rails.application.routes.draw do
     get "matches"
     resources :messages
   end
+
 end
