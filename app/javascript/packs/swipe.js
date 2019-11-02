@@ -24,7 +24,20 @@ $(document).ready(function() {
 
         if (pullDeltaX >= decisionVal) {
             $card.addClass("to-right");
-        } else if (pullDeltaX <= -decisionVal) {
+            var topUserID = $card.attr('topID');
+            var currUserID = currUser;
+            $.ajax({
+            type: 'POST',
+            url: '/match',
+            data: { 
+                'send_id': currUserID, 
+                'recv_id': topUserID
+            },
+            success: function(msg){
+            }
+        });
+        } 
+        else if (pullDeltaX <= -decisionVal) {
             $card.addClass("to-left");
         }
 
@@ -58,6 +71,8 @@ $(document).ready(function() {
         if (animating) return;
 
         $card = $(this);
+        console.log("currUserID: " + currUser);
+        console.log("topUserID :" + $card.attr('topID'));
         $cardReject = $(".demo__card__choice.m--reject", $card);
         $cardLike = $(".demo__card__choice.m--like", $card);
         var startX =  e.pageX || e.originalEvent.touches[0].pageX;
