@@ -1,7 +1,11 @@
+ <%= javascript_tag do %>
+      window.currUser = <%= @user.id %>;
+<% end %>
 <div class="LI_GamerCardContainer">
   <div class="demo__card-cont">
+   
   <% @userlist.each do |newuser| %>
-    <div class="demo__card">
+    <div class="demo__card" topID="<%= newuser.id %>">
       <div class="demo__card__top blue">
         <div class="demo__card__img"></div>
         <h3><%= newuser.name %></h3>
