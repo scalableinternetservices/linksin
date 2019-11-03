@@ -1,59 +1,19 @@
-<!--<div class="ui segment">-->
-<!--  <h3>Mailbox</h3>-->
-
-<!--  <div class="ui list">-->
-<!--    <div class="item">-->
-<!--      <% @conversations.each do |conversation| %>-->
-<!--        <% if conversation.send_id == current_user.id || conversation.recv_id == current_user.id %>-->
-<!--          <% if conversation.send_id == current_user.id %>-->
-<!--            <% recipient = User.find(conversation.recv_id) %>-->
-<!--          <% else %>-->
-<!--            <% recipient = User.find(conversation.send_id) %>-->
-<!--          <% end %>-->
-<!--          <%= link_to recipient.name, conversation_messages_path(conversation)%>-->
-<!--        <% end %>-->
-<!--      <% end %>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-
-<!--<div class="ui segment">-->
-<!--  <h3>All Users</h3>-->
-<!--  <div class="ui list">-->
-<!--    <% @users.each do |user| %>-->
-<!--      <% if user.id != current_user.id %>-->
-<!--      <div class="item">-->
-<!--        <%= user.name %> <%= link_to 'Message me!', conversations_path(send_id: current_user.id, recv_id: user.id), method: 'post'%>-->
-<!--      </div>-->
-<!--      <% end %>-->
-<!--    <% end %>-->
-<!--  </div>-->
-<!--</div>-->
-
-<div class="columns" style="height: calc(92vh)">
-  <div class="column is-3" style="overflow: auto; border-right: 1px solid lightgray">
-    <% @conversations.each do |conversation| %>
+<div class="columns">
+  <% @conversations.each do |conversation| %>
+    <div class="column is-one-third">
       <% if conversation.send_id == current_user.id || conversation.recv_id == current_user.id %>
         <% if conversation.send_id == current_user.id %>
           <% recipient = User.find(conversation.recv_id) %>
         <% else %>
           <% recipient = User.find(conversation.send_id) %>
         <% end %>
-        
-        <div class="columns is-vcentered" style="margin: 0.4rem">
-        <div class="column is-3">
-          <figure class="image">
-            <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-          </figure>
-        </div>
-        <div class="column">
-          <strong><%= link_to recipient.name, conversation_messages_path(conversation)%></strong>
-          <div><em><%= User.find(conversation.messages.last.user_id).name %>: </em><%=conversation.messages.last.body %></div>
-        </div>
-      </div>
-        
+
+        <%= gravatar_for recipient, size: 128  %>
+        <strong><%= link_to recipient.name, recipient.profile %></strong>
+        <div><%= link_to 'Message', conversations_path(send_id: current_user.id, recv_id: recipient.id), method: 'post' %></div>
+
       <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
+
 </div>
