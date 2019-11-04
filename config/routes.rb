@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'events/new'
   root   'static_pages#home'
   get    '/help',    to: 'static_pages#help'
   get    '/about',   to: 'static_pages#about'
@@ -10,7 +9,7 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   get    '/logout',  to: 'sessions#destroy'
   get    '/matches', to: 'conversations#matches'
-  post    '/match',  to: 'conversations#create'
+  post   '/match',   to: 'conversations#create'
 
   resources :users
   resources :profiles
