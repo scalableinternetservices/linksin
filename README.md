@@ -1,4 +1,6 @@
 # CS188 - Scalable Internet Services
+[![Build Status](https://travis-ci.org/scalableinternetservices/linksin.png?branch=master)](https://travis-ci.org/scalableinternetservices/linksin)
+
 * Section Time: Friday 2PM - 3:50PM
 
 * Team Name: LinksIn
