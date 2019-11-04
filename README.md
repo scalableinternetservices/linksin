@@ -1,7 +1,7 @@
 # CS188 - Scalable Internet Services
 * Section Time: Friday 2PM - 3:50PM
 
-* Team Name: LINKSIN
+* Team Name: LinksIn
 
 * Team Members
   * Amy Tu
@@ -55,6 +55,8 @@ LinksIn is a social networking app that builds upon the mechanics of networking 
 * [LinksIn Color Pallete](https://colorhunt.co/palette/17117) 
 <img src="team/pallete.png" width="128">
 
+* [Bulma](https://bulma.io)
+
 ## Model
 * User
   * id
@@ -63,6 +65,6 @@ LinksIn is a social networking app that builds upon the mechanics of networking 
   * password
   
 # Other
-* Here is a guide for editing this readme https://guides.github.com/features/mastering-markdown/
+* [README Editing Guide](https://guides.github.com/features/mastering-markdown/)
 
-* GITHUB ACCOUNT NAME: https://github.com/scalableinternetservices/linksin
+* [Github Link](https://github.com/scalableinternetservices/linksin)
