@@ -6,17 +6,20 @@
 * Team Name: LinksIn
 
 * Team Members
-  * Amy Tu
-  <img src="team/amys_photo.jpg" width="128">
-  
-  * Junhong Wang
-  <img src="team/junhong.jpg" width="128">
-  
-  * Omar Tleimat 
-  <img src="team/omars_photo.jpg" width="128">
-  
-  * Cheuk Yin Phipson Lee
-  <img src="team/phipson.jpg" width="128">
+<table>
+ <tr>
+  <td>Amy Tu</td>
+  <td>Junhong Wang</td>
+  <td>Omar Tleimat </td>
+  <td>Cheuk Yin Phipson Lee</td>
+ </tr>
+ <tr>
+  <td><img src="team/amys_photo.jpg" width="128"></td>
+  <td><img src="team/junhong.jpg" width="128"></td>
+  <td><img src="team/omars_photo.jpg" width="128"></td>
+  <td><img src="team/phipson.jpg" width="128"></td>
+ </tr>
+</table>
 
 # Things We Want to Cover in The Future
 * Ruby version
@@ -60,11 +63,35 @@ LinksIn is a social networking app that builds upon the mechanics of networking 
 * [Bulma](https://bulma.io)
 
 ## Model
-* User
-  * id
-  * username
-  * profile image
-  * password
+<table>
+ <tr>
+  <td colspan="2">User</td>
+ </tr>
+ <tr>
+  <td>id</td>
+  <td>integer</td>
+ </tr>
+ <tr>
+  <td>name</td>
+  <td>string</td>
+ </tr>
+ <tr>
+  <td>email</td>
+  <td>string</td>
+ </tr>
+ <tr>
+  <td>created_at</td>
+  <td>datetime</td>
+ </tr>
+ <tr>
+  <td>updated_at</td>
+  <td>datetime</td>
+ </tr>
+ <tr>
+  <td>password_digest</td>
+  <td>string</td>
+ </tr>
+</table>
   
 # Other
 * [README Editing Guide](https://guides.github.com/features/mastering-markdown/)
