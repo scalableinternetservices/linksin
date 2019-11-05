@@ -1,32 +1,58 @@
-<div class="columns">
-  <div class="column">
-    <% if @over_ten %>
-      <%= link_to 'Show Previous', '?m=all' %>
-    <% end %>
-    <% @messages.each do |message| %>
-      <% if message.body %>
-        <% user = User.find(message.user_id) %>
-        <div class="item">
-          <div class="column">
-            <strong><%= user.name %></strong> <%= message.message_time %>
-            <div><%= message.body %></div>
-          </div>
+<div class="columns" >
+  <div class="column is-3" style="overflow: auto;">
+    <div style="position: fixed; width: inherit">
+    <% @conversations.each do |conversation| %>
+      <% if conversation.send_id == current_user.id || conversation.recv_id == current_user.id %>
+        <% if conversation.send_id == current_user.id %>
+          <% recipient = User.find(conversation.recv_id) %>
+        <% else %>
+          <% recipient = User.find(conversation.send_id) %>
+        <% end %>
+        
+        <div class="columns is-vcentered" style="margin: 0.4rem">
+        <div class="column is-3">
+          <figure class="image">
+            <%= gravatar_for recipient, size: 128, class: "gravatar is-rounded" %>
+          </figure>
         </div>
+        <div class="column">
+          <strong><%= link_to recipient.name, conversation_messages_path(conversation)%></strong>
+          <% unless conversation.messages.nil? %>
+            <div><em><%= conversation.messages.last.user.name %>: <%=conversation.messages.last.body %></em></div>
+          <% end %>
+        </div>
+      </div>
+        
       <% end %>
     <% end %>
+    </div>
   </div>
-
-  <div class="column">
-    <div>
-      <div>
-        <%= form_for [@conversation, @message] do |f| %>
-          <div class="control">
-            <%= f.text_area :body, class: "textarea", placeholder: "Type message here..." %>
+  
+  <div class="column" style="height: calc(92vh)">
+    <div style="height: 90%; overflow-y: scroll">
+      <% if @over_ten %>
+        <%= link_to 'Show Previous', '?m=all' %>
+      <% end %>
+      <% @messages.each do |message| %>
+        <% if message.body %>
+          <% user = User.find(message.user_id) %>
+          <div class="item">
+            <div class="column">
+              <strong><%= user.name %></strong> <%= message.message_time %>
+              <div><%= message.body %></div>
+            </div>
           </div>
-          <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
-          <%= f.submit "Send", class: "button is-primary" %>
         <% end %>
-      </div>
+      <% end %>
+    </div>
+    <div style="position: fixed; bottom: 0; width: 70%; padding: .75em">
+        <%= form_for [@conversation, @message], html: {class: "field has-addons has-addons-fullwidth"} do |f| %>
+          <div class="field control">
+            <%= f.text_field :body, class: "form-control input", placeholder: "Type message here..." %>
+          </div>
+            <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
+            <%= f.submit "Send", class: "button button-primary" %>
+        <% end %>
     </div>
   </div>
 </div>

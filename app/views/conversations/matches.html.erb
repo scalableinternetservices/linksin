@@ -19,7 +19,7 @@
               <p class="title is-6" >
                 <%= link_to recipient.name, recipient.profile %>
               </p>
-              <p>Description goes here...</p>
+              <p><%= recipient.profile.description %></p>
               <%= button_to 'Message', conversations_path(send_id: current_user.id, recv_id: recipient.id), method: 'post', class: "button" %>
             </div>
           </div>
