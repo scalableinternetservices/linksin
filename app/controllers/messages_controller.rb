@@ -6,21 +6,7 @@ class MessagesController < ApplicationController
   before_action :correct_user
 
   def index
-    @messages = @conversation.messages
-    if @messages.length > 10
-      @over_ten = true
-      @messages = @messages[-10..-1]
-    end
-    if params[:m]
-      @over_ten = false
-      @messages = @conversation.messages
-    end
-    if @messages.last
-      if @messages.last.user_id != current_user.id
-        @messages.last.read = true;
-      end
-    end
-
+    @messages = @conversation.messages.paginate(page: params[:page], per_page: 20).order('created_at DESC')
     @message = @conversation.messages.new
   end
 

@@ -3,8 +3,8 @@
     <div id="no_gamers" class="LI_NoGamers" hidden>
       <h5>No more gamers to match with 😢</h5>
     </div>
-  <% @userlist.each do |user| %>
-        <% unless Conversation.between(user.id, @user.id) %>
+    <% @userlist.each do |user| %>
+      <% if Conversation.between(user.id, @user.id).empty? %>
         <div class="demo__card" cardid="<%= user.id %>">
           <div class="demo__card__top">
             <img class="demo__card__img" src="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png" alt="cat" />
@@ -17,7 +17,7 @@
           <div class="demo__card__choice m--like"></div>
           <div class="demo__card__drag"></div>
         </div>
-        <% end %>
+      <% end %>
     <% end %>
   </div>
   <div id="card_action_container" class="LI_GamerCardActionButtonContainer">

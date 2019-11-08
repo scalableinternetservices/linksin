@@ -6,8 +6,7 @@ class ConversationsController < ApplicationController
   end
 
   def index
-    @users = User.all
-    @conversations = Conversation.all
+    @conversations = Conversation.user(current_user)
     redirect_to conversation_messages_path(@conversations.first)
   end
 
