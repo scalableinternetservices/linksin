@@ -1,16 +1,20 @@
 <% provide(:title, "Edit profile") %>
 <div class="LI_Body">
+  <div class="LI_LoginForm">
   <h3>Update your profile</h3>
-  
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="LI_LoginInput">
       <%= form_for(@profile, url: profile_path(@profile)) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
       
-        <%= f.label :description %>
-        <%= f.text_area :description, placeholder: "Describe yourself here..." %>
+        <div class="field" >
+          <%= f.label :description, class: "label" %>
+          <%= f.text_area :description, placeholder: "Describe yourself here...", class: "input"%>
+        </div>
       
-        <%= f.submit 'Save changes', class: "btn btn-primary" %>
+        <div class="field">
+          <%= f.submit 'Save changes', class: "button is-primary", style: "width: 100%" %>
+        </div>
+        
       <% end %>
   
       <div class="gravatar_edit">
