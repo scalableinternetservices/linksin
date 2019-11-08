@@ -1,9 +1,10 @@
 class MessagesController < ApplicationController
   before_action do
-    @conversations = Conversation.all
+    @conversations = Conversation.user(current_user)
     @conversation = Conversation.find(params[:conversation_id])
   end
   before_action :correct_user
+  before_action :is_mutual
 
   def index
     @messages = @conversation.messages.paginate(page: params[:page], per_page: 20).order('created_at DESC')
@@ -28,5 +29,9 @@ private
   
   def correct_user
      redirect_to(root_url) unless (@conversation.send_id == current_user.id || @conversation.recv_id == current_user.id)
+  end
+  
+  def is_mutual
+    redirect_to(root_url) unless (@conversation.mutual)
   end
 end
