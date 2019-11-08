@@ -1,4 +1,41 @@
+# frozen_string_literal: true
+
+# User Model
+#
+# User.new to create a new user
+# User.save to save an user to database
+# User.create to create a new user and save it to database
+# User.destroy to destroy an user from database
+# User.find(id: number) to find an user with specific id
+# User.find_by(key: value) to find an user with specific key value pair
+# User.first returns the first user in the database
+# User.all to get all the users
+#
+# User.update_attributes(key: value)
+# to update the user to have specific key value pairs
+#
+# User.update_attribute(key, value)
+# to update the user to have specific key value pair
+#
 class User < ApplicationRecord
+  # name
+  validates :name,
+            presence: true,
+            length: { maximum: 50 }
+
+  # email
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  validates :email,
+            presence: true,
+            length: { maximum: 255 },
+            format: { with: VALID_EMAIL_REGEX },
+            uniqueness: { case_sensitive: false }
+  before_save { self.email = email.downcase }
+
+  # password
+  has_secure_password
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+
   has_one :profile, dependent: :destroy
   has_many :conversations, :foreign_key => :send_id
   
@@ -8,18 +45,7 @@ class User < ApplicationRecord
   has_many :members
   has_many :events, :through => :members
   attr_accessor :remember_token
-  
-  validates :name,  presence: true, length: { maximum: 50 }
-  
-  before_save { self.email = email.downcase }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-  validates :email, presence: true, length: { maximum: 255 },
-                    format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
-                    
-  has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
-
+    
   # Returns the hash digest of the given string.
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :

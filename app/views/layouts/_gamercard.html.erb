@@ -7,7 +7,7 @@
       <% if Conversation.between(user.id, @user.id).empty? %>
         <div class="demo__card" cardid="<%= user.id %>">
           <div class="demo__card__top">
-            <img class="demo__card__img" src="https://icatcare.org/app/uploads/2018/07/Thinking-of-getting-a-cat.png" alt="cat" />
+            <%= gravatar_for user, :class => "demo__card__img" %>
             <h3 class="has-text-black"><%= user.name %></h3>
           </div>
           <div class="demo__card__btm has-background-white-bis">
