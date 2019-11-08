@@ -10,19 +10,14 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @userlist = randomShow(@user)
+    @userlist = randomShow(@user).select do |user|
+      conversation = Conversation.between(user.id, @user.id)
+      conversation.empty? || !conversation.first.mutual
+    end
   end
 
   def randomShow(user)
-    count = User.count
-    @userlist = Array.new(0)
-    (0..count).step(1) do |item|
-      rand_offset = rand(count)+1
-      if rand_offset != user.id
-        @userlist.push(User.find(rand_offset))
-      end
-    end
-    @userlist
+    User.all.select do |candidate| candidate.id != user.id end
   end
 
   def new

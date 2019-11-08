@@ -4,36 +4,36 @@
       <h5>No more gamers to match with 😢</h5>
     </div>
     <% @userlist.each do |user| %>
-      <% conversation = Conversation.between(user.id, @user.id) %>
-      <% if conversation.empty? || !conversation.first.mutual %>
-        <div class="demo__card" cardid="<%= user.id %>">
-          <div class="demo__card__top">
-            <%= gravatar_for user, size: 256, class: "demo__card__img" %>
-            <h3 class="has-text-black"><%= user.name %></h3>
-          </div>
-          <div class="demo__card__btm has-background-white-bis">
-            <p class="is-size-5"><%= user.email %></p>
-          </div>
-          <div class="demo__card__choice m--reject"></div>
-          <div class="demo__card__choice m--like"></div>
-          <div class="demo__card__drag"></div>
+      <div class="demo__card" cardid="<%= user.id %>">
+        <div class="demo__card__top">
+          <%= gravatar_for user, size: 256, class: "demo__card__img" %>
+          <h3 class="has-text-black"><%= user.name %></h3>
         </div>
-      <% end %>
+        <div class="demo__card__btm has-background-white-bis">
+          <p class="is-size-5"><%= user.email %></p>
+        </div>
+        <div class="demo__card__choice m--reject"></div>
+        <div class="demo__card__choice m--like"></div>
+        <div class="demo__card__drag"></div>
+      </div>
     <% end %>
   </div>
-  <div id="card_action_container" class="LI_GamerCardActionButtonContainer">
-    <button class="LI_GamerActionButton LI_Dislike has-background-white-ter">
-      <i class="fas fa-times fa-2x secondary"></i>
-    </button>
-    <button class="LI_GamerActionButton LI_Like has-background-white-ter">
-      <i class="fas fa-heart fa-2x primary"></i>
-    </button>
-  </div>
+  <% if @userlist.length > 0 %>
+    <div id="card_action_container" class="LI_GamerCardActionButtonContainer">
+      <button class="LI_GamerActionButton LI_Dislike has-background-white-ter">
+        <i class="fas fa-times fa-2x secondary"></i>
+      </button>
+      <button class="LI_GamerActionButton LI_Like has-background-white-ter">
+        <i class="fas fa-heart fa-2x primary"></i>
+      </button>
+    </div>
+  <% end %>
 </div>
 <script>
     $(document).ready(function() {
 
         var numCards = <%= @userlist.length %>;
+        console.log(numCards)
         var animating = false;
         var decisionVal = 80;
         var pullDeltaX = 0;
