@@ -1,32 +1,99 @@
-<div class="columns">
-  <div class="column">
-    <% if @over_ten %>
-      <%= link_to 'Show Previous', '?m=all' %>
-    <% end %>
-    <% @messages.each do |message| %>
-      <% if message.body %>
-        <% user = User.find(message.user_id) %>
-        <div class="item">
+<div class="columns" >
+  <div class="column is-3" style="overflow: auto;">
+    <% @conversations.each do |conversation| %>
+      <% if conversation.send_id == current_user.id || conversation.recv_id == current_user.id %>
+        <% if conversation.send_id == current_user.id %>
+          <% recipient = User.find(conversation.recv_id) %>
+        <% else %>
+          <% recipient = User.find(conversation.send_id) %>
+        <% end %>
+        
+        <% if @conversation == conversation %>
+          <div class="columns is-vcentered" style="margin: 0.4rem; background: aliceblue;">
+        <% else %>
+          <div class="columns is-vcentered" style="margin: 0.4rem;">
+        <% end %>
+          <div class="column is-3">
+            <figure class="image">
+              <%= gravatar_for recipient, size: 128, class: "gravatar is-rounded" %>
+            </figure>
+          </div>
           <div class="column">
-            <strong><%= user.name %></strong> <%= message.message_time %>
-            <div><%= message.body %></div>
+            <strong><%= link_to recipient.name, conversation_messages_path(conversation)%></strong>
+            <% unless conversation.messages.last.nil? %>
+              <div><em><%= recipient.name == conversation.messages.last.user.name ? recipient.name : "Me" %>: <%=conversation.messages.last.body %></em></div>
+            <% end %>
           </div>
         </div>
+        
       <% end %>
     <% end %>
-  </div>
-
-  <div class="column">
     <div>
-      <div>
-        <%= form_for [@conversation, @message] do |f| %>
-          <div class="control">
-            <%= f.text_area :body, class: "textarea", placeholder: "Type message here..." %>
+    
+    </div>
+  </div>
+  
+  <div class="column"  style="height: calc(90vh)">
+    <div id="infinite-scrolling" style="display: none">
+      <%= will_paginate %>
+    </div>
+    <div style="height: 90%; overflow-y: scroll" id="message-window">
+      <% @messages.reverse.each do |message| %>
+        <% if message.body %>
+          <% user = User.find(message.user_id) %>
+          <% if user == current_user %>
+            <div class="item" style="text-align: right">
+          <% else %>
+            <div class="item">
+          <% end %>
+            <div class="column">
+              <strong><%= user.name %></strong> <%= message.message_time %>
+              <div><%= message.body %></div>
+            </div>
           </div>
-          <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
-          <%= f.submit "Send", class: "button is-primary" %>
         <% end %>
-      </div>
+      <% end %>
+    </div>
+    <div style="bottom: 0; padding-top: 1em">
+        <%= form_for [@conversation, @message], html: {class: "field has-addons has-addons-fullwidth"} do |f| %>
+          <div class="field control">
+            <%= f.text_field :body, class: "form-control input", placeholder: "Type message here..." %>
+          </div>
+            <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
+            <%= f.submit "Send", class: "button button-primary" %>
+        <% end %>
     </div>
   </div>
 </div>
+
+<script>
+  function scrollToBottom(){
+      var element = document.getElementById("message-window");
+      element.scrollTop = element.scrollHeight;
+  }
+  
+  scrollToBottom();
+  
+  var nextPage = 2;
+  var numPages = $('.pagination').children().length - 2;
+  var debounce = null;
+  var rResult = null;
+  $('#message-window').on('scroll', function() {
+    clearTimeout(debounce );
+    debounce = setTimeout(function(){
+      next_page_url = '?page=' + nextPage
+      if ((nextPage <= numPages) && $('#message-window').scrollTop() < 60) {
+        $.ajax({
+          url: next_page_url
+        }).done(function (result) {
+          var offset = $('#message-window:first');
+          $('#message-window').prepend($(result).find("#message-window").contents());
+          $('#message-window').scrollTop(offset.offset().top);
+          nextPage++;
+        });
+      }
+        console.log("Hi");
+    }, 200);
+  return
+  });
+</script>

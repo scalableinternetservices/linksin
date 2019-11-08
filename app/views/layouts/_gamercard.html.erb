@@ -3,19 +3,21 @@
     <div id="no_gamers" class="LI_NoGamers" hidden>
       <h5>No more gamers to match with 😢</h5>
     </div>
-  <% @userlist.each do |user| %>
-    <div class="demo__card" cardid="<%= user.id %>">
-      <div class="demo__card__top">
-        <%= gravatar_for user, :class => "demo__card__img" %>
-        <h3 class="has-text-black"><%= user.name %></h3>
-      </div>
-      <div class="demo__card__btm has-background-white-bis">
-        <p class="is-size-5"><%= user.email %></p>
-      </div>
-      <div class="demo__card__choice m--reject"></div>
-      <div class="demo__card__choice m--like"></div>
-      <div class="demo__card__drag"></div>
-    </div>
+    <% @userlist.each do |user| %>
+      <% if Conversation.between(user.id, @user.id).empty? %>
+        <div class="demo__card" cardid="<%= user.id %>">
+          <div class="demo__card__top">
+            <%= gravatar_for user, :class => "demo__card__img" %>
+            <h3 class="has-text-black"><%= user.name %></h3>
+          </div>
+          <div class="demo__card__btm has-background-white-bis">
+            <p class="is-size-5"><%= user.email %></p>
+          </div>
+          <div class="demo__card__choice m--reject"></div>
+          <div class="demo__card__choice m--like"></div>
+          <div class="demo__card__drag"></div>
+        </div>
+      <% end %>
     <% end %>
   </div>
   <div id="card_action_container" class="LI_GamerCardActionButtonContainer">

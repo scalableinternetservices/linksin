@@ -1,32 +1,32 @@
 <div class="columns is-multiline">
   <% @conversations.each do |conversation| %>
-    <div class="column is-3">
-      <% if conversation.send_id == current_user.id || conversation.recv_id == current_user.id %>
-        <% if conversation.send_id == current_user.id %>
-          <% recipient = User.find(conversation.recv_id) %>
-        <% else %>
-          <% recipient = User.find(conversation.send_id) %>
-        <% end %>
-
-        <div class="card">
-          <div class="card-image">
-            <figure class="image">
-              <%= gravatar_for recipient %>
-            </figure>
-          </div>
-          <div class="card-content">
-            <div class="content">
-              <p class="title is-6" >
-                <%= link_to recipient.name, recipient.profile %>
-              </p>
-              <p>Description goes here...</p>
-              <%= button_to 'Message', conversations_path(send_id: current_user.id, recv_id: recipient.id), method: 'post', class: "button" %>
+    <% if conversation.send_id == current_user.id || conversation.recv_id == current_user.id %>
+      <div class="column is-3">
+          <% if conversation.send_id == current_user.id %>
+            <% recipient = User.find(conversation.recv_id) %>
+          <% else %>
+            <% recipient = User.find(conversation.send_id) %>
+          <% end %>
+  
+          <div class="card">
+            <div class="card-image">
+              <figure class="image">
+                <%= gravatar_for recipient, size: 512 %>
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="content">
+                <p class="title is-6" >
+                  <%= link_to recipient.name, recipient.profile %>
+                </p>
+                <p><%= recipient.profile.description %></p>
+                <%= button_to 'Message', conversations_path(send_id: current_user.id, recv_id: recipient.id), method: 'post', class: "button" %>
+              </div>
             </div>
           </div>
-        </div>
-
-      <% end %>
-    </div>
+  
+      </div>
+    <% end %>
   <% end %>
 
 </div>
