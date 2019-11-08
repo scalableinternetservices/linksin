@@ -1,7 +1,6 @@
 <div class="columns" >
   <div class="column is-3" style="overflow: auto;">
     <% @conversations.each do |conversation| %>
-      <% if conversation.send_id == current_user.id || conversation.recv_id == current_user.id %>
         <% if conversation.send_id == current_user.id %>
           <% recipient = User.find(conversation.recv_id) %>
         <% else %>
@@ -27,7 +26,6 @@
         </div>
         
       <% end %>
-    <% end %>
     <div>
     
     </div>

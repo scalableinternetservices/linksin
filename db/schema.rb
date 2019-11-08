@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_31_025232) do
+ActiveRecord::Schema.define(version: 2019_11_08_011719) do
 
   create_table "conversations", force: :cascade do |t|
     t.integer "send_id"
     t.integer "recv_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "mutual", default: false
   end
 
   create_table "events", force: :cascade do |t|

@@ -4,10 +4,11 @@
       <h5>No more gamers to match with 😢</h5>
     </div>
     <% @userlist.each do |user| %>
-      <% if Conversation.between(user.id, @user.id).empty? %>
+      <% conversation = Conversation.between(user.id, @user.id) %>
+      <% if conversation.empty? || !conversation.first.mutual %>
         <div class="demo__card" cardid="<%= user.id %>">
           <div class="demo__card__top">
-            <%= gravatar_for user, :class => "demo__card__img" %>
+            <%= gravatar_for user, size: 256, class: "demo__card__img" %>
             <h3 class="has-text-black"><%= user.name %></h3>
           </div>
           <div class="demo__card__btm has-background-white-bis">
