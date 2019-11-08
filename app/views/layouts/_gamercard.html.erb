@@ -33,7 +33,6 @@
     $(document).ready(function() {
 
         var numCards = <%= @userlist.length %>;
-        console.log(numCards)
         var animating = false;
         var decisionVal = 80;
         var pullDeltaX = 0;
@@ -126,6 +125,12 @@
             const topCard = $("#card_container").children().last();
             const cardId = topCard.attr('cardid');
             createMatch(cardId);
+            topCard.remove();
+            numCards--;
+            if (!numCards) {
+                $("#card_action_container").remove();
+                $("#no_gamers").removeAttr("hidden");
+            }
         });
 
         $(".LI_Dislike").click(function() {

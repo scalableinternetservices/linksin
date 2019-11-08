@@ -9,16 +9,20 @@
   <body>
   <%= render 'layouts/header' %>
   <div>
-    <% flash.each do |message_type, message| %>
-      <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
-    <% end %>
     <div class="container">
       <%= yield %>
       <% unless logged_in? %>
         <%= render 'layouts/footer' %>
       <% end %>
     </div>
+    <% flash.each do |message_type, message| %>
+      <%= content_tag(:div, message, class: "notification is-#{message_type}", style: "position: absolute; bottom: 1rem; left: 1rem;") %>
+    <% end %>
   </div>
-
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".notification" ).fadeToggle(3000);
+    });
+  </script>
 </body>
 </html>

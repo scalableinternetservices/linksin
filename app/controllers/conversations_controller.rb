@@ -22,11 +22,9 @@ class ConversationsController < ApplicationController
         redirect_to conversation_messages_path(@conversation)
       else 
         flash[:danger] = "Patience, mate; you've got to give them some time to respond!"
-        redirect_to current_user
       end
     else
       @conversation = Conversation.create!(conversation_params)
-      redirect_to current_user
     end
   end
 
