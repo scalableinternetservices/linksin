@@ -41,6 +41,29 @@
 # Description
 LinksIn is a social networking app that builds upon the mechanics of networking on Tinder to create an accessible, sociable media outlet for the gaming community. As gamers, users can connect to LinksIn through their existing gaming accounts, swipe through other gamers and players using the Tinder card-swiping mechanism, and connect with new players that might be in the same game as them. Additionally, with LinksIn, players can also create LAN events and invite people within their 'card community' to join and coordinate gaming events together.
 
+# Deployment
+1. SSH into AWS server
+```Bash
+ssh -i ~/.ssh/linksin.pem linksin@ec2-52-35-41-146.us-west-2.compute.amazonaws.com
+```
+2. Clone this repository
+```Bash
+git clone https://github.com/scalableinternetservices/linksin.git
+```
+3. Change directory to linksin
+```Bash
+cd ./linksin
+```
+4. Initialize AWS Elastic Beanstalk instance
+```Bash
+eb init
+```
+5. Deploy
+```Bash
+eb create -db.engine postgres -db.i db.t3.micro -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin
+```
+6. Go to [AWS console](https://273020147241.signin.aws.amazon.com/console) to check deployment status
+
 # Documentation
 ## Scrum Story
 * As a gamer, I want to be able to link my accounts from the games I play, such as Steam, Blizzard, Gmail, League, Nintendo, in order to show people what games I play, and also directly add people as friends through these gaming accounts.
