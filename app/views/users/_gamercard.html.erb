@@ -122,25 +122,21 @@
         });
 
         $(".LI_Like").click(function() {
-            const topCard = $("#card_container").children().last();
-            const cardId = topCard.attr('cardid');
-            createMatch(cardId);
-            topCard.remove();
-            numCards--;
-            if (!numCards) {
-                $("#card_action_container").remove();
-                $("#no_gamers").removeAttr("hidden");
-            }
+            if (animating) return;
+            $card = $("#card_container").children().last();
+            $cardLike = $(".demo__card__choice.m--like", $card);
+            $cardLike.css("opacity", 1);
+            pullDeltaX = 100;
+            release();
         });
 
         $(".LI_Dislike").click(function() {
-            const topCard = $("#card_container").children().last();
-            topCard.remove();
-            numCards--;
-            if (!numCards) {
-                $("#card_action_container").remove();
-                $("#no_gamers").removeAttr("hidden");
-            }
+            if (animating) return;
+            $card = $("#card_container").children().last();
+            $cardReject = $(".demo__card__choice.m--reject", $card);
+            $cardReject.css("opacity", 1);
+            pullDeltaX = -100;
+            release();
         });
 
         $(".demo__card__top").each(function() {
