@@ -41,6 +41,37 @@
 # Description
 LinksIn is a social networking app that builds upon the mechanics of networking on Tinder to create an accessible, sociable media outlet for the gaming community. As gamers, users can connect to LinksIn through their existing gaming accounts, swipe through other gamers and players using the Tinder card-swiping mechanism, and connect with new players that might be in the same game as them. Additionally, with LinksIn, players can also create LAN events and invite people within their 'card community' to join and coordinate gaming events together.
 
+# Development
+1. Clone this repository
+```Bash
+git clone https://github.com/scalableinternetservices/linksin.git
+```
+2. Change directory to linksin
+```Bash
+cd ./linksin
+```
+3. Install all dependencies
+```Bash
+yarn install
+```
+4. Install all gems
+```Bash
+bundle install
+```
+5. Initialize the database
+```Bash
+rails db:migrate
+```
+6. Seed the database with some fake users
+```Bash
+rails db:seed
+```
+7. start the server
+```Bash
+rails server
+```
+8. Go to [localhost:3000](http://localhost:3000/)
+
 # Deployment
 1. SSH into AWS server
 ```Bash
