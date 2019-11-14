@@ -30,14 +30,7 @@
   <sessions>
     <session name="http-example" probability="100" type="ts_http">
 
-      
-
-        <!-- Sign up -->
-	
-       
-
-        <!-- Sign up -->
-
+     
         <request subst="true">
           <http url="/" method="GET" version="1.1" />
         </request>
@@ -49,25 +42,11 @@
 	<setdynvars sourcetype="random_string" length="13">
 	  <var name="rndstring" />
 	</setdynvars>
+	
 	<request subst="true">
           <http url="/signup" method="POST" version="1.1" contents="user[name]=%%_rndstring%%&amp;user[email]=%%_rndstring%%@meow.com&amp;user[password]=meow123&amp;user[password_confirmation]=meow123&amp;commit=Create Account" content_type="application/x-www-form-urlencoded" />
-         </request>
+        </request>
 
-
-
-
- 
-
-
-
-
-      
-
-
-
-       
-
-      
 
     </session>
   </sessions>
