@@ -13,10 +13,12 @@ def create_user(email,name)
   )
 end
 
-def create_event(title,description)
+def create_event(title,description,date,time)
   Event.create!(
-    title: title,
-    description: description
+    name: title,
+    description: description,
+    date: date,
+    time: time
   )
 end
 
@@ -26,7 +28,7 @@ end
 
 1...10.times do |i|
 	create_user("user_#{i}@meow.com", Faker::Name.first_name)
-	create_event("Event #{i}", "Cool event")
+	create_event("Event #{i}", "Cool event", "03/11/2021", "1:00AM")
 end
 
 User.all.each do |user|

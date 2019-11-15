@@ -37,6 +37,7 @@ class EventsController < ApplicationController
   def addEventHost
     id = @event.host.to_i
     User.find(current_user.id).events << @event
+    redirect_to events_path
   end
 
   private
