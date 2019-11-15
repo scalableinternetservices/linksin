@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       conversation = Conversation.between(user.id, @user.id)
       conversation.empty? || !conversation.first.mutual
     end
-    @eventList = User.find(params[:id]).events
+    #@eventList = User.find(params[:id]).events
   end
 
   def randomShow(user)
@@ -24,6 +24,8 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @userlist = []
+    @eventList = []
   end
 
   def create

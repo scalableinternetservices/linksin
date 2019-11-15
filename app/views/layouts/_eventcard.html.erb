@@ -1,11 +1,11 @@
 
 <div class="LI_EventContainer">
-<% if @events.blank? %>
+<% if @eventList.blank? %>
   You currently have not joined an event.
   <br>
   Join an event or create an event to begin!
 <% else %>
-<% @events.each do |event| %>
+<% @eventList.each do |event| %>
   <div class="card">
     <div class="card-image">
       <figure class="image is-3by2">
@@ -42,4 +42,13 @@
   </div>
 <% end %>
 <% end %>
+<%= render 'layouts/eventform' %>
 </div>
+<script type="text/javascript">
+    $(function () {
+        $("#datepicker").datepicker({
+            dateFormat:'mm/dd/yy'
+        });
+        $('input.timepicker').timepicker({});
+    });
+</script>
