@@ -1,11 +1,6 @@
 
 <div class="LI_EventContainer">
-<% if @eventList.blank? %>
-  You currently have not joined an event.
-  <br>
-  Join an event or create an event to begin!
-<% else %>
-<% @eventList.each do |event| %>
+<% @user.events.each do |event| %>
   <div class="card">
     <div class="card-image">
       <figure class="image is-3by2">
@@ -20,8 +15,8 @@
           </figure>
         </div>
         <div class="media-content">
-          <p class="title is-4"><%= event.title %></p>
-          <p class="subtitle is-6">Some info about event <%= event.title %></p>
+          <p class="title is-4"><%= event.name %></p>
+          <p class="subtitle is-6"><%= event.description %></p>
         </div>
       </div>
       <div class="content">
@@ -36,11 +31,10 @@
           <% end %>
         <% end %>
         <br>
-        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        <time datetime="2016-1-1"><%= event.date %></time>
       </div>
     </div>
   </div>
-<% end %>
 <% end %>
 <%= render 'layouts/eventform' %>
 </div>

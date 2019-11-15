@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   def index
   	@events = Event.paginate(page: params[:page])
+    @user = User.find(current_user.id)
   end
   def new
   	@event = Event.new
@@ -35,7 +36,7 @@ class EventsController < ApplicationController
 
   def addEventHost
     id = @event.host.to_i
-    User.find(id).events << @event
+    User.find(current_user.id).events << @event
   end
 
   private

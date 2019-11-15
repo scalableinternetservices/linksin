@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       conversation = Conversation.between(user.id, @user.id)
       conversation.empty? || !conversation.first.mutual
     end
-    #@eventList = User.find(params[:id]).events
+    @eventList = User.find(params[:id]).events
   end
 
   def randomShow(user)
@@ -37,6 +37,8 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
+    @userList = []
+    @eventList = []
   end
 
   def edit
@@ -44,6 +46,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    @eventList = User.find(params[:id]).events
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
