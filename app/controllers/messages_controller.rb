@@ -4,7 +4,6 @@ class MessagesController < ApplicationController
     @conversation = Conversation.find(params[:conversation_id])
   end
   before_action :correct_user
-  before_action :is_mutual
 
   def index
     @messages = @conversation.messages.paginate(page: params[:page], per_page: 20).order('created_at DESC')

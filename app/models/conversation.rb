@@ -11,6 +11,6 @@ class Conversation < ApplicationRecord
   end
   
   scope :user, -> (user_id) do
-    where("(conversations.send_id = ? OR conversations.recv_id = ?) AND conversations.mutual", user_id, user_id)
+    where("(conversations.send_id = ? OR conversations.recv_id = ?)", user_id, user_id)
   end
 end
