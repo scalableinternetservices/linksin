@@ -10,6 +10,16 @@
           <%= f.label :description, class: "label" %>
           <%= f.text_area :description, placeholder: "Describe yourself here...", class: "input"%>
         </div>
+        
+        <div class="field" >
+          <%= f.label :games, class: "label" %>
+          <%= f.text_area :games, placeholder: "Overwatch, Melee, etc...", class: "input"%>
+        </div>
+        
+        <div class="field" >
+          <%= f.label :accounts, class: "label" %>
+          <%= f.text_area :accounts, placeholder: "Discord: MeowLord#8888, Steam: MeowLord, etc...", class: "input"%>
+        </div>
       
         <div class="field">
           <%= f.submit 'Save changes', class: "button is-primary", style: "width: 100%" %>
@@ -24,3 +34,9 @@
     </div>
   </div>
 </div>
+
+<style>
+.input {
+  height: 10vh;
+}
+</style>

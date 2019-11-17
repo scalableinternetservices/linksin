@@ -32,8 +32,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in @user
-      flash[:success] = "Welcome to LinksIn!"
-      redirect_to @user
+      flash[:success] = "Welcome to LinksIn! Please create your profile."
+      redirect_to edit_profile_path(@user.profile)
     else
       render 'new'
     end
