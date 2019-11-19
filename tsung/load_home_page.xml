@@ -8,18 +8,41 @@
   </clients>
 
   <!-- Server side setup -->
+  <!-- Instance name must be links-in-dev -->
   <servers>
     <server host="links-in-dev.vg3uaunike.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
   </servers>
 
 
   <load>
-    <arrivalphase phase="1" duration="1" unit="minute">
-      <users arrivalrate="10" unit="second"></users>
+    <!-- 
+      Phase 1: A user arrives every second
+      Duration: 30 seconds
+     -->
+    <arrivalphase phase="1" duration="30" unit="second">
+      <users arrivalrate="1" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="2" duration="2" unit="minute">
-      <users arrivalrate="100" unit="second"></users>
+    <!-- 
+      Phase 2: A user arrives every 2 seconds
+      Duration: 30 seconds
+     -->
+    <arrivalphase phase="2" duration="30" unit="second">
+      <users arrivalrate="2" unit="second"></users>
     </arrivalphase>
+    <!-- 
+      Phase 3: A user arrives every 4 seconds
+      Duration: 30 seconds
+     -->
+    <arrivalphase phase="3" duration="30" unit="second">
+      <users arrivalrate="4" unit="second"></users>
+    </arrivalphase>
+    <!-- 
+      Phase 4: A user arrives every 8 seconds
+      Duration: 30 seconds
+     -->
+   <arrivalphase phase="4" duration="30" unit="second">
+     <users arrivalrate="8" unit="second"></users>
+   </arrivalphase>
   </load>
 
   <options>
@@ -31,11 +54,15 @@
     </option>
   </options>
 
+  <!-- 
+    A user will perform the following series of requests
+   -->
   <sessions>
     <session name="http-example" probability="100" type="ts_http">
       <request>
         <http url='/' version='1.1' method='GET'></http>
       </request>
+      <thinktime value="20" random="true"></thinktime>
     </session>
   </sessions>
 </tsung>
