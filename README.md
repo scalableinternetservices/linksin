@@ -84,18 +84,19 @@ eb create -db.engine postgres -db.i db.t3.micro -db.user u -db.pass password --e
 6. Go to [AWS console](https://273020147241.signin.aws.amazon.com/console) to check deployment status
 
 # Load Testing
-1. Install tsung
-```Bash
-brew install tsung
+1. Go to [AWS console](https://273020147241.signin.aws.amazon.com/console)
+2. Go to CloudFormation and create a stack with following S3 URL
 ```
-2. Run load testing script
-```Bash
-tsung -f [load_testing_script.xml] start -k
+https://ucla-cs188-fall-2019.s3.amazonaws.com/Tsung.json
 ```
-3. Go to [localhost:8091](http://localhost:8091/)
-4. If you don't see anything in Reports/Graphs, then run
+3. Click Output tab and ssh into the stack
+4. Run load testing script
 ```Bash
-sudo cpan Template
+tsung -tf your_load_test_script.xml start
+```
+5. Transfer testing result to local machine
+```Bash
+scp -r -i ~/.ssh/linksin.pem ec2-user@ec2-52-40-132-169.us-west-2.compute.amazonaws.com:your_tsung_log_path_in_remote destination_path_in_your_local_machine
 ```
 
 # Documentation
