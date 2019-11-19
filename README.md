@@ -83,6 +83,21 @@ eb create -db.engine postgres -db.i db.t3.micro -db.user u -db.pass password --e
 ```
 6. Go to [AWS console](https://273020147241.signin.aws.amazon.com/console) to check deployment status
 
+# Load Testing
+1. Install tsung
+```Bash
+brew install tsung
+```
+2. Run load testing script
+```Bash
+tsung -f [load_testing_script.xml] start -k
+```
+3. Go to [localhost:8091](http://localhost:8091/)
+4. If you don't see anything in Reports/Graphs, then run
+```Bash
+sudo cpan Template
+```
+
 # Documentation
 ## Scrum Story
 * As a gamer, I want to be able to link my accounts from the games I play, such as Steam, Blizzard, Gmail, League, Nintendo, in order to show people what games I play, and also directly add people as friends through these gaming accounts.
