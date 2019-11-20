@@ -149,6 +149,21 @@
         </http>
       </request>
 
+      <!-- User goes to user home page -->
+      <request>
+        <http url='/' version='1.1' method='GET'>
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- User matches with some gamers -->
+
+      <!-- User goes to matches page to checkout new matches -->
+
+      <!-- User goes to conversations page to chat with gamers -->
+
+      <!-- User log out -->
+
     </session>
   </sessions>
 </tsung>
