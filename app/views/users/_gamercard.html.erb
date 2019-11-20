@@ -3,7 +3,7 @@
     <div id="no_gamers" class="LI_NoGamers" hidden>
       <h5>No more gamers to match with 😢</h5>
     </div>
-    <% @userlist.each do |user| %>
+    <% @userlist.take(20).each do |user| %>
       <div class="demo__card" cardid="<%= user.id %>">
         <div class="demo__card__top">
           <%= gravatar_for user, size: 256, class: "demo__card__img" %>
@@ -32,7 +32,8 @@
 <script>
     $(document).ready(function() {
 
-        var numCards = <%= @userlist.length %>;
+        // var numCards = <%= @userlist.length %>;
+        var numCards = Math.min(<%= @userlist.length %>, 20);
         var animating = false;
         var decisionVal = 80;
         var pullDeltaX = 0;
