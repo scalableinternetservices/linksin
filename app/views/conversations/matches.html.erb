@@ -1,6 +1,5 @@
 <div class="columns is-multiline">
   <% @conversations.each do |conversation| %>
-    <% if (conversation.send_id == current_user.id || conversation.recv_id == current_user.id) && conversation.mutual %>
       <div class="column is-3">
           <% if conversation.send_id == current_user.id %>
             <% recipient = User.find(conversation.recv_id) %>
@@ -44,7 +43,6 @@
           
   
       </div>
-    <% end %>
   <% end %>
 </div>
 <script>
