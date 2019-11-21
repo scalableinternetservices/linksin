@@ -19,7 +19,6 @@
                     <p class="title is-6" >
                       <%= link_to recipient.name, recipient.profile %>
                     </p>
-                    <p><%= recipient.profile.description %></p>
                     <%= link_to 'Message', conversation_messages_path(conversation) %>
                     <button onclick="flip(<%= recipient.id %>)">Details</button>
                   </div>
@@ -27,6 +26,18 @@
               </div>
               <div class="back">
                 <button onclick="flip(<%= recipient.id %>)">Back</button>
+                <div>
+                  <h5>Description</h5>
+                  <p><%= recipient.profile.description %></p>
+                </div>
+                <div>
+                  <h5>Games Played</h5>
+                  <p><%= recipient.profile.games %></p>
+                </div>
+                <div>
+                  <h5>Accounts</h5>
+                  <p><%= recipient.profile.accounts %></p>
+                </div>
               </div>
             </div>
           </div>

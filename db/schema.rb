@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_08_011719) do
+ActiveRecord::Schema.define(version: 2019_11_16_232218) do
 
   create_table "conversations", force: :cascade do |t|
     t.integer "send_id"
@@ -54,6 +54,8 @@ ActiveRecord::Schema.define(version: 2019_11_08_011719) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "games"
+    t.string "accounts"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 

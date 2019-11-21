@@ -1,7 +1,6 @@
 class ProfilesController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :logged_in_user
   before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
 
   def show
     @profile = Profile.find(params[:id])
@@ -31,10 +30,6 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def destroy
-    Profile.find(params[:id]).destroy
-  end
-
   private
   
     def create_params
@@ -42,7 +37,7 @@ class ProfilesController < ApplicationController
     end
     
     def profile_params
-      params.require(:profile).permit(:description)
+      params.require(:profile).permit(:description, :games, :accounts)
     end
 
     # Before filters
@@ -59,11 +54,9 @@ class ProfilesController < ApplicationController
     # Confirms the correct user.
     def correct_user
       @user = Profile.find(params[:id]).user
-      redirect_to(root_url) unless @user == current_user
-    end
-    
-    # Confirms an admin user.
-    def admin_user
-      redirect_to(root_url) unless current_user.admin?
+      unless @user == current_user
+        flash[:danger] = "Can not edit other users' profiles."
+        redirect_to(Profile.find(params[:id])) 
+      end
     end
 end
