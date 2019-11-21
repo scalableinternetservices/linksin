@@ -157,6 +157,17 @@
       </request>
 
       <!-- User matches with some gamers -->
+      <request>
+        <http 
+          url='/match' 
+          version='1.1'  
+          contents='send_id=1&amp;recv_id=21' 
+          content_type='application/x-www-form-urlencoded; charset=UTF-8' 
+          method='POST'
+        >
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
 
       <!-- User goes to matches page to checkout new matches -->
 
