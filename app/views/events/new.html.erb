@@ -1,2 +1,12 @@
-<h1>Events#new</h1>
-<p>Find me in app/views/events/new.html.erb</p>
+<div class="has-text-centered">
+	<h3>Create Event</h3>
+</div>
+<%= render 'layouts/eventform' %>
+<script type="text/javascript">
+    $(function () {
+        $("#datepicker").datepicker({
+            dateFormat:'mm/dd/yy'
+        });
+        $('input.timepicker').timepicker({});
+    });
+</script>

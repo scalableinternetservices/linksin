@@ -1,48 +1,47 @@
 
 <div class="LI_EventContainer">
-<% @user.events.each do |event| %>
-  <div class="card">
-    <div class="card-image">
-      <figure class="image is-3by2">
-        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-      </figure>
+  <% if @user.events.empty? %>
+    <div class="has-text-centered">
+      <p>No events available. Plase create an event.</p>
     </div>
-    <div class="card-content">
-      <div class="media">
-        <div class="media-left">
-          <figure class="image is-48x48">
-            <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-          </figure>
-        </div>
-        <div class="media-content">
-          <p class="title is-4"><%= event.name %></p>
-          <p class="subtitle is-6"><%= event.description %></p>
-        </div>
+  <% end %>
+  <% @user.events.each do |event| %>
+    <div class="card" style="margin-top: 2rem;">
+      <div class="card-image">
+        <figure class="image is-3by2">
+          <img src="https://cdn.vox-cdn.com/thumbor/WpD4uVc8_Kylum15ofvs2wHjHEI=/0x0:1920x1080/1200x800/filters:focal(807x387:1113x693)/cdn.vox-cdn.com/uploads/chorus_image/image/62986012/Fortnite_20190202140735.0.jpg" alt="Placeholder image">
+        </figure>
       </div>
-      <div class="content">
-        <% if event.users.blank? %>
-          Be the first to register!
-        <% else %>
-          <%= event.users.length %> users are registered
-          <% event.users.each do |user| %>
-          <li>
-            <%= user.name %> 
-          </li>
+      <div class="card-content">
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-48x48">
+              <img src="https://cdn1.iconfinder.com/data/icons/games-colored/512/gamer-512.png" alt="Placeholder image">
+            </figure>
+          </div>
+          <div class="media-content">
+            <p class="title is-4"><%= event.name %></p>
+            <p class="subtitle is-6"><%= event.description %></p>
+          </div>
+        </div>
+        <div class="content">
+          <% if event.users.blank? %>
+            Be the first to register!
+          <% else %>
+            <%= event.users.length %> users are registered
+            <% event.users.each do |user| %>
+            <li>
+              <%= user.name %> 
+            </li>
+            <% end %>
           <% end %>
-        <% end %>
-        <br>
-        <time datetime="2016-1-1"><%= event.date %></time>
+          <br>
+          <time datetime="2016-1-1"><%= event.date %></time>
+        </div>
       </div>
     </div>
+  <% end %>
+  <div class="has-text-centered" style="margin-top: 2rem;">
+    <%= link_to "Create an event", "/events/new", class: "button" %>
   </div>
-<% end %>
-<%= render 'layouts/eventform' %>
 </div>
-<script type="text/javascript">
-    $(function () {
-        $("#datepicker").datepicker({
-            dateFormat:'mm/dd/yy'
-        });
-        $('input.timepicker').timepicker({});
-    });
-</script>

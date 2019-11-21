@@ -1,24 +1,48 @@
 <% provide(:title, @user.name) %>
-<div class="LI_UserShow">
-  <div class="LI_UserShowHead">
-    <%= gravatar_for @user, style: "margin: 10px;" %>
+<div class="columns">
+  <div class="column is-two-fifths has-text-centered">
+    <%= gravatar_for @user, size: 256 %>
     <div>
-      <h3><%= @user.name %></h3>
-      <p><%= @profile.description %></p>
+      <% if current_user == @user %>
+        <%= link_to 'Edit', edit_profile_path(@profile), class: "button" %>
+      <% end %>
     </div>
-
-    <% if current_user == @user %>
-      <%= link_to 'Edit', edit_profile_path(@profile) %>
-    <% end %>
   </div>
   <div class="column">
     <div>
-      <h5>Games Played</h5>
-      <p><%= @profile.games %></p>
+      <p class="is-size-4 has-text-primary">Name</p>
+      <p><%= @user.name %></p>
     </div>
     <div>
-      <h5>Accounts</h5>
-      <p><%= @profile.accounts %></p>
+      <p class="is-size-4 has-text-primary">Description</p>
+      <% if @profile.description.blank? %>
+        <p>No description available</p>
+      <% else %>
+        <p><%= @profile.description %></p>
+      <% end %>
+    </div>
+    <div>
+      <p class="is-size-4 has-text-primary">Games Played</p>
+      <% if @profile.games.blank? %>
+        <p>No games played listed</p>
+      <% else %>
+        <p><%= @profile.games %></p>
+      <% end %>
+    </div>
+    <div>
+      <p class="is-size-4 has-text-primary">Accounts</p>
+      <% if @profile.accounts.blank? %>
+        <p>No accounts listed</p>
+      <% else %>
+        <p><%= @profile.accounts %></p>
+      <% end %>
     </div>
   </div>
 </div>
+
+
+
+
+
+
+    
