@@ -11,7 +11,7 @@ import sys
 
 f = open("userlist.csv", "w")
 
-for i in range(int(sys.argv[1])):
-    f.write("user{};user{}@example.com\n".format(str(i), str(i)))
+for i in range(1,1+int(sys.argv[1])):
+    f.write("{};user{};user{}@example.com\n".format(str(i), str(i), str(i)))
 
 f.close()
