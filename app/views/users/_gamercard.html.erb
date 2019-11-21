@@ -57,8 +57,10 @@
                 type: 'POST',
                 url: '/match',
                 data: {
-                    'send_id': <%= @user.id %>,
-                    'recv_id': id
+                    'conversation': {
+                        'send_id': <%= @user.id %>,
+                        'recv_id': id
+                    }
                 }
             });
         }

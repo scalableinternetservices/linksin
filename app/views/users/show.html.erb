@@ -2,3 +2,26 @@
 <div class="LI_UserShow">
   <%= render 'gamercard' %>
 </div>
+
+<%= form_for(Conversation.new) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div>
+    <div class="field">
+      <%= f.label :send_id, class: "label" %>
+      <%= f.number_field :send_id, class: 'input' %>
+    </div>
+
+    <div class="field">
+      <%= f.label :recv_id, class: "label" %>
+      <%= f.number_field :recv_id, class: 'input'%>
+    </div>
+
+    <div class="field">
+      <p class="control has-text-centered">
+        <%= f.submit 'Match', class: "button is-primary", style: "width: 100%" %>
+      </p>
+    </div>
+  </div>
+  
+<% end %>
