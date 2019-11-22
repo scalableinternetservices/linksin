@@ -22,12 +22,12 @@ ActiveRecord::Schema.define(version: 2019_11_22_053205) do
 
   create_table "events", force: :cascade do |t|
     t.string "description"
+    t.string "name"
+    t.string "date"
+    t.string "time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "host"
-    t.date "date"
-    t.time "time"
-    t.string "name"
   end
 
   create_table "guests", force: :cascade do |t|

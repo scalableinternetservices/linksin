@@ -24,9 +24,7 @@
           <div class="media-content">
             <p class="title is-4"><%= event.name %></p>
             <% if current_user.id == event.host %>
-
-            <p class="subtitle is-6">You created this event</p>
-            
+              <p class="subtitle is-6">You created this event</p>
             <% end %>
           </div>
         </div>
@@ -38,9 +36,9 @@
             <% event.users.each do |user| %>
             <li>
               <% if current_user.id == user.id %>
-              You
+                You
               <% else %>
-              <%= user.name %> 
+                <%= user.name %> 
               <% end %>
             </li>
             <% end %>
