@@ -37,8 +37,10 @@
 # # Allow puma to be restarted by `rails restart` command.
 # plugin :tmp_restart
 
+# Processes: ec2 default just deploys to 1 process engine- 
+
 workers Integer(ENV['WEB_CONCURRENCY'] || 2)
-threads_count = Integer(ENV['RAILS_MAX_THREADS'] || 5)
+threads_count = Integer(ENV['RAILS_MAX_THREADS'] || 10)
 threads threads_count, threads_count
 
 preload_app!

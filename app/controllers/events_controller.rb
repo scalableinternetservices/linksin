@@ -15,7 +15,6 @@ class EventsController < ApplicationController
     invite_ids.each do |id|
       User.find(id).invites << @event
     end
-
   end
 
 
