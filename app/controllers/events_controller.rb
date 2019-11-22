@@ -11,6 +11,7 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     addEventHost()
     invite_ids = params[:user_ids]
+    
     invite_ids.each do |id|
       User.find(id).invites << @event
     end
