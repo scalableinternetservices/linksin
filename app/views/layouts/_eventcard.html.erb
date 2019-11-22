@@ -33,8 +33,8 @@
           <% if event.users.blank? %>
             Be the first to register!
           <% else %>
-            <%= event.users.length %> users are registered
-            <% event.users.each do |user| %>
+            <%= event.invitees.length %> users are registered
+            <% event.invitees.each do |user| %>
             <li>
               <% if current_user.id == user.id %>
                 You
