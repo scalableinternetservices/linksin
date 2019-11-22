@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_16_232218) do
+ActiveRecord::Schema.define(version: 2019_11_22_053205) do
 
   create_table "conversations", force: :cascade do |t|
     t.integer "send_id"
@@ -22,11 +22,21 @@ ActiveRecord::Schema.define(version: 2019_11_16_232218) do
 
   create_table "events", force: :cascade do |t|
     t.string "description"
-    t.string "name"
-    t.string "date"
-    t.string "time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "host"
+    t.date "date"
+    t.time "time"
+    t.string "name"
+  end
+
+  create_table "guests", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_guests_on_event_id"
+    t.index ["user_id"], name: "index_guests_on_user_id"
   end
 
   create_table "members", force: :cascade do |t|
@@ -70,6 +80,8 @@ ActiveRecord::Schema.define(version: 2019_11_16_232218) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "guests", "events"
+  add_foreign_key "guests", "users"
   add_foreign_key "members", "events"
   add_foreign_key "members", "users"
   add_foreign_key "messages", "conversations"

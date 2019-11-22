@@ -8,14 +8,17 @@ class EventsController < ApplicationController
   end
 
   def create
+
     @event = Event.new(event_params)
+
     addEventHost()
-    unless @event.guests.blank?
-      @event.guests.each do |guest|
-        guest.events << @event
-      end
+    invite_ids = params[:user_ids]
+    invite_ids.each do |id|
+      User.find(id).invites << @event
     end
+
   end
+
 
   def edit
     @event = Event.find(params[:id])
@@ -35,7 +38,7 @@ class EventsController < ApplicationController
   end
 
   def addEventHost
-    id = @event.host.to_i
+    @event.host = current_user.id
     User.find(current_user.id).events << @event
     redirect_to events_path
   end
