@@ -1,9 +1,11 @@
 <div class="LI_GamerCardContainer">
+  <% cache(User.cache_key_for_userCards) do %>
   <div id="card_container" class="demo__card-cont">
     <div id="no_gamers" class="LI_NoGamers" hidden>
       <h5>No more gamers to match with 😢</h5>
     </div>
-    <% @userlist.take(20).each do |user| %>
+    <% @userlist.each do |user| %>
+      <% cache(User.cache_key_for_user(user)) do %>
       <div class="demo__card" cardid="<%= user.id %>">
         <div class="demo__card__top">
           <%= gravatar_for user, size: 256, class: "demo__card__img" %>
@@ -16,9 +18,10 @@
         <div class="demo__card__choice m--like"></div>
         <div class="demo__card__drag"></div>
       </div>
+      <% end %>
     <% end %>
   </div>
-  <% if @userlist.length > 0 %>
+  <% if @userlist.length >= 0 %>
     <div id="card_action_container" class="LI_GamerCardActionButtonContainer">
       <button class="LI_GamerActionButton LI_Dislike has-background-white-ter">
         <i class="fas fa-times fa-2x secondary"></i>
@@ -27,6 +30,7 @@
         <i class="fas fa-heart fa-2x primary"></i>
       </button>
     </div>
+    <% end %>
   <% end %>
 </div>
 <script>
@@ -81,6 +85,7 @@
                     if (!numCards) {
                         $("#card_action_container").remove();
                         $("#no_gamers").removeAttr("hidden");
+                        location.reload();
                     }
                 }, 300);
             }
