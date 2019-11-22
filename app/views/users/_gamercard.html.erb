@@ -1,5 +1,4 @@
 <div class="LI_GamerCardContainer">
-  <% cache(User.cache_key_for_userCards) do %>
   <div id="card_container" class="demo__card-cont">
     <div id="no_gamers" class="LI_NoGamers" hidden>
       <h5>No more gamers to match with 😢</h5>
@@ -31,7 +30,6 @@
       </button>
     </div>
     <% end %>
-  <% end %>
 </div>
 <script>
     $(document).ready(function() {
