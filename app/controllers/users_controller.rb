@@ -19,11 +19,11 @@ class UsersController < ApplicationController
   end
 
   def randomShow(user)
-    User.all.select do |candidate| candidate.id != user.id end
+    User.where.not(id: user.id).order("RANDOM()").limit(20)
   end
 
   def new
-    @user = User.new
+    @user = User.new 
     @userlist = []
     @eventList = []
   end

@@ -18,24 +18,46 @@
                     <p class="title is-6" >
                       <%= link_to recipient.name, recipient.profile %>
                     </p>
-                    <%= link_to 'Message', conversation_messages_path(conversation) %>
-                    <button onclick="flip(<%= recipient.id %>)">Details</button>
+                    <div class="has-text-centered" style="margin-top: 1rem;">
+                    <%= link_to 'Message', conversation_messages_path(conversation), class: "flip-button" %>
+                    </div>
+                    <div class="has-text-centered" style="margin-top: 1rem;">
+                      <button class="flip-button" onclick="flip(<%= recipient.id %>)">
+                        Details
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="back">
-                <button onclick="flip(<%= recipient.id %>)">Back</button>
-                <div>
-                  <h5>Description</h5>
-                  <p><%= recipient.profile.description %></p>
-                </div>
-                <div>
-                  <h5>Games Played</h5>
-                  <p><%= recipient.profile.games %></p>
-                </div>
-                <div>
-                  <h5>Accounts</h5>
-                  <p><%= recipient.profile.accounts %></p>
+                <div class="back-container">
+                  <div>
+                    <p class="is-size-4 has-text-primary">Description</p>
+                    <% if recipient.profile.description.blank? %>
+                      <p>No description available</p>
+                    <% else %>
+                      <p><%= recipient.profile.description %></p>
+                    <% end %>
+                  </div>
+                  <div>
+                    <p class="is-size-4 has-text-primary">Games Played</p>
+                    <% if recipient.profile.games.blank? %>
+                      <p>No games played listed</p>
+                    <% else %>
+                      <p><%= recipient.profile.games %></p>
+                    <% end %>
+                  </div>
+                  <div>
+                    <p class="is-size-4 has-text-primary">Accounts</p>
+                    <% if recipient.profile.accounts.blank? %>
+                      <p>No accounts listed</p>
+                    <% else %>
+                      <p><%= recipient.profile.accounts %></p>
+                    <% end %>
+                  </div>
+                  <div class="has-text-centered" >
+                    <button class="flip-button" onclick="flip(<%= recipient.id %>)">Back</button>
+                  </div>
                 </div>
               </div>
             </div>
