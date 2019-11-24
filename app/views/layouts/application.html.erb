@@ -1,27 +1,18 @@
-<% cache 'linksinmain' do %>
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
   <head>
     <title><%= full_title(yield(:title)) %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <% cache 'layouts/rails_default' do %>
-      <%= render 'layouts/rails_default' %>
-    <% end %>
-    <% cache 'layouts/shim' do %>
-      <%= render 'layouts/shim' %>
-    <% end %>
+    <%= render 'layouts/rails_default' %>
+    <%= render 'layouts/shim' %>
   </head>
   <body>
-    <% cache 'layouts/header' do %>
-      <%= render 'layouts/header' %>
-    <% end %>
+    <%= render 'layouts/header' %>
   <div>
     <div class="container">
       <%= yield %>
       <% unless logged_in? %>
-        <% cache 'layouts/footer' do %>
         <%= render 'layouts/footer' %>
-        <% end %>
       <% end %>
     </div>
     <% flash.each do |message_type, message| %>
@@ -35,4 +26,3 @@
   </script>
 </body>
 </html>
-<% end %>

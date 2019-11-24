@@ -80,12 +80,4 @@ class User < ApplicationRecord
     Profile.create(user: self) # Associations must be defined correctly for this syntax, avoids using ID's directly.
   end
 
-  # User Caching
-  def User.cache_key_for_user(x)
-    "user-#{x.id}-#{x.updated_at}-#{x.events.count}"
-  end
-
-  def User.cache_key_for_userCards
-    "userCards-#{User.maximum(:updated_at)}"
-  end
 end
