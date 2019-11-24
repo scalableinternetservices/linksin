@@ -25,9 +25,7 @@
     </div>
     <div class="navbar-end" style="margin-right: 0.6rem">
       <% if logged_in? %>
-        <% cache 'layouts/account' do %>
-          <%= render 'layouts/account' %>
-        <% end %>
+        <%= render 'layouts/account' %>
       <% else %>
         <%= link_to "Sign Up", signup_path, :class => "button is-primary navbar-item", :style => "margin: auto" %>
         <%= link_to "Log In",  login_path,  :class => "button is-light navbar-item", :style => "margin: auto" %>
