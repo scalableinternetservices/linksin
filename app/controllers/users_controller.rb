@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def randomShow(user)
-    User.where.not(name: user.name).order("RANDOM()").limit(20)
+    User.where.not(id: user.id).order("RANDOM()").limit(20)
   end
 
   def new
