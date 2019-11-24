@@ -1,5 +1,4 @@
 
-<% cache(Event.cache_key_for_eventList) do %>
 <div class="LI_EventContainer">
   <% if @user.events.empty? %>
     <div class="has-text-centered">
@@ -7,7 +6,6 @@
     </div>
   <% end %>
   <% @user.events.each do |event| %>
-    <% cache(Event.cache_key_for_event(event)) do %>
     <div class="card" style="margin-top: 2rem;">
       <div class="card-image">
         <figure class="image is-3by2">
@@ -51,11 +49,9 @@
         </div>
       </div>
     </div>
-    <% end %>
   <% end %>
 
   <div class="has-text-centered" style="margin-top: 2rem;">
     <%= link_to "Create an event", "/events/new", class: "button" %>
   </div>
 </div>
-<% end %>

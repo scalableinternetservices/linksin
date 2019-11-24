@@ -14,11 +14,4 @@ class Conversation < ApplicationRecord
     where("(conversations.send_id = ? OR conversations.recv_id = ?) AND conversations.mutual", user_id, user_id)
   end
 
-  def Conversation.cache_key_for_conversation(x)
-    "conversation-#{x.send_id}-#{x.recv_id}-#{x.updated_at}"
-  end
-
-  def Conversation.cache_key_for_conversations
-    "conversation-#{Conversation.maximum(:updated_at)}"
-  end
 end
