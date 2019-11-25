@@ -93,7 +93,7 @@ https://ucla-cs188-fall-2019.s3.amazonaws.com/Tsung.json
 3. Click Output tab and ssh into the stack
 4. Install git on the stack
 ```Bash
-yum install git
+sudo yum install git
 ```
 5. Clone this repo
 ```Bash
@@ -103,9 +103,17 @@ git clone https://github.com/scalableinternetservices/linksin.git
 ```Bash
 tsung -kf your_load_test_script.xml start
 ```
-7. Transfer testing result to local machine
+7. Create plots from tsung log
 ```Bash
-scp -r -i ~/.ssh/linksin.pem ec2-user@ec2-52-40-132-169.us-west-2.compute.amazonaws.com:your_tsung_log_path_in_remote destination_path_in_your_local_machine
+tsplot "First test" firsttest/tsung.log -d outputdir
+```
+You can also plot two or more logs on the same graph
+```Bash
+tsplot "First test" firsttest/tsung.log "Second test" secondtest/tsung.log -d outputdir
+```
+8. Transfer testing result to local machine
+```Bash
+scp -r -i ~/.ssh/linksin.pem ec2-user@remove_ip_address:your_tsung_log_path_in_remote destination_path_in_your_local_machine
 ```
 
 ## How to write test script
