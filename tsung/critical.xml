@@ -11,6 +11,7 @@
   <servers>
     <server host="linksin-load-testing.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
   </servers>
+
   <load>
     <!-- 
       Phase 1: 1 user every second
