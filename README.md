@@ -139,26 +139,38 @@ eb create -db.engine postgres -db.i db.t3.small -db.user u -db.pass password --e
 ```Bash
 eb create -db.engine postgres -db.i db.t3.medium -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin
 ```
-3. small
+3. large
 ```Bash
 eb create -db.engine postgres -db.i db.t3.large -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin
 ```
-4. Check [this](https://aws.amazon.com/ec2/instance-types/) for different instance
+4. xlarge
+```Bash
+eb create -db.engine postgres -db.i db.t3.xlarge -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin
+```
+5. 2xlarge
+```Bash
+eb create -db.engine postgres -db.i db.t3.2xlarge -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin
+```
+6. Check [this](https://aws.amazon.com/ec2/instance-types/) for different instance
 
 ## Horizontal Scaling
 1. 2 instances
 ```Bash
-eb create -db.engine postgres -db.i db.t3.micro -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale=2
+eb create -db.engine postgres -db.i db.t3.micro -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale 2
 ```
 2. 4 instances
 ```Bash
-eb create -db.engine postgres -db.i db.t3.micro -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale=4
+eb create -db.engine postgres -db.i db.t3.micro -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale 4
 ```
 3. 8 instances
 ```Bash
-eb create -db.engine postgres -db.i db.t3.micro -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale=8
+eb create -db.engine postgres -db.i db.t3.micro -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale 8
 ```
-4. Check [this](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb3-create.html) for eb create documentation
+4. 16 instances
+```Bash
+eb create -db.engine postgres -db.i db.t3.micro -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale 8
+```
+5. Check [this](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb3-create.html) for eb create documentation
 
 # Documentation
 ## Scrum Story
