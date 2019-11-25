@@ -8,11 +8,9 @@
   </clients>
 
   <!-- Server side setup -->
-  <!-- Instance name must be links-in-dev -->
   <servers>
-    <server host="linksin-dev.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
+    <server host="linksin-load-testing.us-west-2.elasticbeanstalk.com" port="80" type="tcp"></server>
   </servers>
-
   <load>
     <!-- 
       Phase 1: 1 user every second
@@ -22,18 +20,81 @@
       <users arrivalrate="1" unit="second"></users>
     </arrivalphase>
     <!-- 
-      Phase 2: 1 user every 2 seconds
+      Phase 2: 1.5 user every second
       Duration: 60 seconds
      -->
     <arrivalphase phase="2" duration="60" unit="second">
-      <users arrivalrate="2" unit="second"></users>
+      <users arrivalrate="1.5" unit="second"></users>
     </arrivalphase>
     <!-- 
-      Phase 3: 1 user every 4 seconds
+      Phase 3: 2 user every second
       Duration: 60 seconds
      -->
     <arrivalphase phase="3" duration="60" unit="second">
+      <users arrivalrate="2" unit="second"></users>
+    </arrivalphase>
+    <!-- 
+      Phase 4: 4 user every second
+      Duration: 60 seconds
+     -->
+    <arrivalphase phase="4" duration="60" unit="second">
       <users arrivalrate="4" unit="second"></users>
+    </arrivalphase>
+    <!-- 
+      Phase 5: 6 user every second
+      Duration: 60 seconds
+     -->
+    <arrivalphase phase="5" duration="60" unit="second">
+      <users arrivalrate="6" unit="second"></users>
+    </arrivalphase>
+    <!-- 
+      Phase 6: 10 user every second
+      Duration: 60 seconds
+     -->
+    <arrivalphase phase="6" duration="60" unit="second">
+      <users arrivalrate="10" unit="second"></users>
+    </arrivalphase>
+    <!-- 
+      Phase 7: 10 user every second
+      Duration: 60 seconds
+     -->
+    <arrivalphase phase="7" duration="60" unit="second">
+      <users arrivalrate="16" unit="second"></users>
+    </arrivalphase>
+    <!-- 
+      Phase 8: 20 user every second
+      Duration: 60 seconds
+     -->
+    <arrivalphase phase="8" duration="60" unit="second">
+      <users arrivalrate="20" unit="second"></users>
+    </arrivalphase>
+    <!-- 
+      Phase 9: 25 user every second
+      Duration: 60 seconds
+     -->
+    <arrivalphase phase="9" duration="60" unit="second">
+      <users arrivalrate="25" unit="second"></users>
+    </arrivalphase>
+    <!-- 
+      Phase 10: 35 user every second
+      Duration: 60 seconds
+     -->
+    <arrivalphase phase="10" duration="60" unit="second">
+      <users arrivalrate="35" unit="second"></users>
+    </arrivalphase>
+    <!-- 
+      Phase 11: 45 user every second
+      Duration: 60 seconds
+     -->
+    <arrivalphase phase="11" duration="60" unit="second">
+      <users arrivalrate="45" unit="second"></users>
+    </arrivalphase>
+    <!-- 
+      Phase 12: 55 user every second
+      Duration: 60 seconds
+     -->
+    <arrivalphase phase="12" duration="60" unit="second">
+      <users arrivalrate="55" unit="second"></users>
     </arrivalphase>
   </load>
 
@@ -44,15 +105,20 @@
     <option type="ts_http" name="user_agent">
       <user_agent probability="100">Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4</user_agent>
     </option>
+
+    <option name="file_server" id="userlist" value="userlist.csv"></option>
   </options>
 
-  <!-- 
-    A user will perform the following series of requests
-   -->
   <sessions>
-    <session name="http-example" probability="100" type="ts_http">
+    <session name='crit_path_test' probability='100' type='ts_http'>
+      <!-- sets dynamic variables from csv list with id userlist -->
+      <setdynvars sourcetype="file" fileid="userlist" delimiter=";" order="iter">
+          <var name="user_id" />
+          <var name="user_name" />
+          <var name="user_email" />
+      </setdynvars>
 
-      <!-- Start out at the home page -->
+       <!-- Start out at the home page -->
       <request>
         <http url='/' version='1.1' method='GET'>
           <http_header name='Accept-Encoding' value='gzip, deflate' />
@@ -62,60 +128,422 @@
       <!-- wait for up to 10 seconds, user is looking at homepage -->
       <thinktime value="10" random="true"></thinktime>
 
-      <!--  user decides to sign up for our service -->
+      <!--  user logs in -->
       <request subst="true">
         <dyn_variable name="authenticity_token"></dyn_variable>
-        <http url="/signup" method="GET" version="1.1">
+        <http url="/login" method="GET" version="1.1">
           <http_header name='Accept-Encoding' value='gzip, deflate' />
         </http>
       </request>
 
-      <!-- user is looking at sign up form for up to 2 seconds -->
-      <thinktime value="2" random="true"></thinktime>
-      
-      <!-- user creates a username/email -->
-      <setdynvars sourcetype="random_string" length="6">
-        <var name="rndstring" />
-      </setdynvars>
-
-      <!-- encode authenticity_token -->
-      <setdynvars 
-        sourcetype="eval"
-        code="fun({Pid,DynVars})->{ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),http_uri:encode(Val) end."
-      >
-        <var name="encoded_authenticity_token" />
-      </setdynvars>
-
-      <!-- User signup -->
-      <request subst="true">
-        <http 
-          url="/signup" 
-          method="POST" 
-          version="1.1" 
-          contents="authenticity_token=%%_encoded_authenticity_token%%&amp;user[name]=%%_rndstring%%&amp;user[email]=%%_rndstring%%@gmail.com&amp;user[password]=linksin&amp;user[password_confirmation]=linksin&amp;commit=Create+Account"
-          content_type="application/x-www-form-urlencoded"
-        >
-          <http_header name='Accept-Encoding' value='gzip, deflate' />
-        </http>
-      </request>
-
-      <!-- User is waiting to be logged in -->
+      <!-- user is filling out signup form -->
       <thinktime random="true" min="5" max="10" />
 
+      <!-- parse dynamic variables to url-encoded variables -->
+      <setdynvars sourcetype="eval"
+              code="fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                        http_uri:encode(Val) end.">
+          <var name="encoded_authenticity_token" />
+      </setdynvars>
+      <setdynvars sourcetype="eval"
+              code="fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(user_name,DynVars),
+                        http_uri:encode(Val) end.">
+          <var name="encoded_user_name" />
+      </setdynvars>
+      <setdynvars sourcetype="eval"
+              code="fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(user_email,DynVars),
+                        http_uri:encode(Val) end.">
+          <var name="encoded_user_email" />
+      </setdynvars>
+
+      <!-- log in -->
+      <request subst="true">
+        <dyn_variable name="redirect" re="Location: (http://.*)\r"/>
+        <dyn_variable name="user" re="Location: http://.*/users/(.*)\r"/>
+        <http url="/login" method="POST" version="1.1" contents="authenticity_token=%%_encoded_authenticity_token%%&amp;
+                                                                  session%5Bemail%5D=%%_encoded_user_email%%&amp;
+                                                                  session%5Bpassword%5D=meow123&amp;
+                                                                  user%5Bremember_me%5D=0&amp;
+                                                                  commit=Log+in" content_type="application/x-www-form-urlencoded" >
+          
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
       <!-- User is redirected to user home page -->
+      <request subst="true">
+        <dyn_variable name="authenticity_token"></dyn_variable>
+        <http url='%%_redirect%%' version='1.1' method='GET'>
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- user is thinking -->
+      <thinktime random="true" min="1" max="3" />
+
+      <!-- encode the authenticity token -->
+      <setdynvars sourcetype="eval"
+              code="fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                        http_uri:encode(Val) end.">
+          <var name="encoded_authenticity_token" />
+      </setdynvars>
+
+      <!-- User swipes on user 1 -->
+      <request subst="true">
+        <dyn_variable name="redirect" re="Location: (http://.*)\r"/>
+        <http url='/conversations' method="POST" version="1.1" contents="authenticity_token=%%_encoded_authenticity_token%%&amp;
+                                                                  conversation%5Bsend_id%5D=%%_user%%&amp;
+                                                                  conversation%5Brecv_id%5D=1&amp;commit=Match" 
+                                                                  content_type="application/x-www-form-urlencoded" >
+          
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- User is redirected to messages -->
+      <request subst="true">
+        <dyn_variable name="authenticity_token"></dyn_variable>
+        <http url='%%_redirect%%' version='1.1' method='GET'>
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- user writes the message -->
+      <thinktime random="true" min="1" max="2" />
+
+      <!-- encode the authenticity token -->
+      <setdynvars sourcetype="eval"
+              code="fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                        http_uri:encode(Val) end.">
+          <var name="encoded_authenticity_token" />
+      </setdynvars>
+
+      <!-- User messages user 1 -->
+      <request subst="true">
+        <dyn_variable name="redirect" re="Location: (http://.*)\r"/>
+        <http url='%%_redirect%%' method="POST" version="1.1" contents="authenticity_token=%%_encoded_authenticity_token%%&amp;
+                                                                  message%5Bbody%5D=quack&amp;
+                                                                  message%5Buser_id%5D=%%_user%%&amp;commit=Send" 
+                                                                  content_type="application/x-www-form-urlencoded" >
+          
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- user is thinking -->
+      <thinktime random="true" min="1" max="3" />
+
+      <!-- go to home -->
       <request>
+        <dyn_variable name="redirect" re="Location: (http://.*)\r"/>
         <http url='/' version='1.1' method='GET'>
           <http_header name='Accept-Encoding' value='gzip, deflate' />
         </http>
       </request>
 
-      <!-- User thinks about what to do -->
-      <thinktime random="true" value="2" />
+      <!-- User is redirected to user home page -->
+      <request subst="true">
+        <dyn_variable name="authenticity_token"></dyn_variable>
+        <http url='%%_redirect%%' version='1.1' method='GET'>
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
 
-      <!-- User goes to Events page -->
+      <!-- user is thinking -->
+      <thinktime random="true" min="1" max="3" />
+
+      <!-- encode the authenticity token -->
+      <setdynvars sourcetype="eval"
+              code="fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                        http_uri:encode(Val) end.">
+          <var name="encoded_authenticity_token" />
+      </setdynvars>
+
+      <!-- User swipes on user 2 -->
+      <request subst="true">
+        <dyn_variable name="redirect" re="Location: (http://.*)\r"/>
+        <http url='/conversations' method="POST" version="1.1" contents="authenticity_token=%%_encoded_authenticity_token%%&amp;
+                                                                  conversation%5Bsend_id%5D=%%_user%%&amp;
+                                                                  conversation%5Brecv_id%5D=2&amp;commit=Match" 
+                                                                  content_type="application/x-www-form-urlencoded" >
+          
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- User is redirected to messages -->
+      <request subst="true">
+        <dyn_variable name="authenticity_token"></dyn_variable>
+        <http url='%%_redirect%%' version='1.1' method='GET'>
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- user writes the message -->
+      <thinktime random="true" min="1" max="2" />
+
+      <!-- encode the authenticity token -->
+      <setdynvars sourcetype="eval"
+              code="fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                        http_uri:encode(Val) end.">
+          <var name="encoded_authenticity_token" />
+      </setdynvars>
+
+      <!-- User messages user 2 -->
+      <request subst="true">
+        <dyn_variable name="redirect" re="Location: (http://.*)\r"/>
+        <http url='%%_redirect%%' method="POST" version="1.1" contents="authenticity_token=%%_encoded_authenticity_token%%&amp;
+                                                                  message%5Bbody%5D=quack&amp;
+                                                                  message%5Buser_id%5D=%%_user%%&amp;commit=Send" 
+                                                                  content_type="application/x-www-form-urlencoded" >
+          
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- user is thinking -->
+      <thinktime random="true" min="1" max="3" />
+
+      <!-- go to home -->
+      <request>
+        <dyn_variable name="redirect" re="Location: (http://.*)\r"/>
+        <http url='/' version='1.1' method='GET'>
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- User is redirected to user home page -->
+      <request subst="true">
+        <dyn_variable name="authenticity_token"></dyn_variable>
+        <http url='%%_redirect%%' version='1.1' method='GET'>
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- user is thinking -->
+      <thinktime random="true" min="1" max="3" />
+
+      <!-- encode the authenticity token -->
+      <setdynvars sourcetype="eval"
+              code="fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                        http_uri:encode(Val) end.">
+          <var name="encoded_authenticity_token" />
+      </setdynvars>
+
+      <!-- User swipes on user 3 -->
+      <request subst="true">
+        <dyn_variable name="redirect" re="Location: (http://.*)\r"/>
+        <http url='/conversations' method="POST" version="1.1" contents="authenticity_token=%%_encoded_authenticity_token%%&amp;
+                                                                  conversation%5Bsend_id%5D=%%_user%%&amp;
+                                                                  conversation%5Brecv_id%5D=3&amp;commit=Match" 
+                                                                  content_type="application/x-www-form-urlencoded" >
+          
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- User is redirected to messages -->
+      <request subst="true">
+        <dyn_variable name="authenticity_token"></dyn_variable>
+        <http url='%%_redirect%%' version='1.1' method='GET'>
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- user writes the message -->
+      <thinktime random="true" min="1" max="2" />
+
+      <!-- encode the authenticity token -->
+      <setdynvars sourcetype="eval"
+              code="fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                        http_uri:encode(Val) end.">
+          <var name="encoded_authenticity_token" />
+      </setdynvars>
+
+      <!-- User messages user 3 -->
+      <request subst="true">
+        <dyn_variable name="redirect" re="Location: (http://.*)\r"/>
+        <http url='%%_redirect%%' method="POST" version="1.1" contents="authenticity_token=%%_encoded_authenticity_token%%&amp;
+                                                                  message%5Bbody%5D=quack&amp;
+                                                                  message%5Buser_id%5D=%%_user%%&amp;commit=Send" 
+                                                                  content_type="application/x-www-form-urlencoded" >
+          
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- user is thinking -->
+      <thinktime random="true" min="1" max="3" />
+
+      <!-- go to home -->
+      <request>
+        <dyn_variable name="redirect" re="Location: (http://.*)\r"/>
+        <http url='/' version='1.1' method='GET'>
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- User is redirected to user home page -->
+      <request subst="true">
+        <dyn_variable name="authenticity_token"></dyn_variable>
+        <http url='%%_redirect%%' version='1.1' method='GET'>
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- user is thinking -->
+      <thinktime random="true" min="1" max="3" />
+
+      <!-- encode the authenticity token -->
+      <setdynvars sourcetype="eval"
+              code="fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                        http_uri:encode(Val) end.">
+          <var name="encoded_authenticity_token" />
+      </setdynvars>
+
+      <!-- User swipes on user 4 -->
+      <request subst="true">
+        <dyn_variable name="redirect" re="Location: (http://.*)\r"/>
+        <http url='/conversations' method="POST" version="1.1" contents="authenticity_token=%%_encoded_authenticity_token%%&amp;
+                                                                  conversation%5Bsend_id%5D=%%_user%%&amp;
+                                                                  conversation%5Brecv_id%5D=4&amp;commit=Match" 
+                                                                  content_type="application/x-www-form-urlencoded" >
+          
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- User is redirected to messages -->
+      <request subst="true">
+        <dyn_variable name="authenticity_token"></dyn_variable>
+        <http url='%%_redirect%%' version='1.1' method='GET'>
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- user writes the message -->
+      <thinktime random="true" min="1" max="2" />
+
+      <!-- encode the authenticity token -->
+      <setdynvars sourcetype="eval"
+              code="fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                        http_uri:encode(Val) end.">
+          <var name="encoded_authenticity_token" />
+      </setdynvars>
+
+      <!-- User messages user 4 -->
+      <request subst="true">
+        <dyn_variable name="redirect" re="Location: (http://.*)\r"/>
+        <http url='%%_redirect%%' method="POST" version="1.1" contents="authenticity_token=%%_encoded_authenticity_token%%&amp;
+                                                                  message%5Bbody%5D=quack&amp;
+                                                                  message%5Buser_id%5D=%%_user%%&amp;commit=Send" 
+                                                                  content_type="application/x-www-form-urlencoded" >
+          
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- user is thinking -->
+      <thinktime random="true" min="1" max="3" />
+
+      <!-- go to home -->
+      <request>
+        <dyn_variable name="redirect" re="Location: (http://.*)\r"/>
+        <http url='/' version='1.1' method='GET'>
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- User is redirected to user home page -->
+      <request subst="true">
+        <dyn_variable name="authenticity_token"></dyn_variable>
+        <http url='%%_redirect%%' version='1.1' method='GET'>
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- user is thinking -->
+      <thinktime random="true" min="1" max="3" />
+
+      <!-- encode the authenticity token -->
+      <setdynvars sourcetype="eval"
+              code="fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                        http_uri:encode(Val) end.">
+          <var name="encoded_authenticity_token" />
+      </setdynvars>
+
+      <!-- User swipes on user 5 -->
+      <request subst="true">
+        <dyn_variable name="redirect" re="Location: (http://.*)\r"/>
+        <http url='/conversations' method="POST" version="1.1" contents="authenticity_token=%%_encoded_authenticity_token%%&amp;
+                                                                  conversation%5Bsend_id%5D=%%_user%%&amp;
+                                                                  conversation%5Brecv_id%5D=5&amp;commit=Match" 
+                                                                  content_type="application/x-www-form-urlencoded" >
+          
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- User is redirected to messages -->
+      <request subst="true">
+        <dyn_variable name="authenticity_token"></dyn_variable>
+        <http url='%%_redirect%%' version='1.1' method='GET'>
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- user writes the message -->
+      <thinktime random="true" min="1" max="2" />
+
+      <!-- encode the authenticity token -->
+      <setdynvars sourcetype="eval"
+              code="fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                        http_uri:encode(Val) end.">
+          <var name="encoded_authenticity_token" />
+      </setdynvars>
+
+      <!-- User messages user 5 -->
+      <request subst="true">
+        <dyn_variable name="redirect" re="Location: (http://.*)\r"/>
+        <http url='%%_redirect%%' method="POST" version="1.1" contents="authenticity_token=%%_encoded_authenticity_token%%&amp;
+                                                                  message%5Bbody%5D=quack&amp;
+                                                                  message%5Buser_id%5D=%%_user%%&amp;commit=Send" 
+                                                                  content_type="application/x-www-form-urlencoded" >
+          
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- user is thinking -->
+      <thinktime random="true" min="1" max="3" />
+
+      <!-- User goes to Event page -->
+      <request>
+        <http url='/events' version='1.1' method='GET'>
+          <http_header name='Accept-Encoding' value='gzip, deflate' />
+        </http>
+      </request>
+
+      <!-- user is thinking -->
+      <thinktime random="true" min="1" max="3" />
+
+      <!-- User goes to Event creation page -->
       <request>
         <dyn_variable name="authenticity_token"></dyn_variable>
-        <http url='/events' version='1.1' method='GET'>
+        <http url='/events/new' version='1.1' method='GET'>
           <http_header name='Accept-Encoding' value='gzip, deflate' />
         </http>
       </request>
@@ -123,49 +551,23 @@
       <!-- User is looking at the event creation form -->
       <thinktime random="true" value="2" />
 
-      <!-- user creates a username/email -->
-      <setdynvars sourcetype="random_string" length="6">
-        <var name="rndevent" />
-      </setdynvars>
-
       <!-- encode authenticity_token -->
-      <setdynvars 
-        sourcetype="eval"
-        code="fun({Pid,DynVars})->{ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),http_uri:encode(Val) end."
-      >
-        <var name="encoded_event_authenticity_token" />
+      <setdynvars sourcetype="eval"
+              code="fun({Pid,DynVars})->
+                        {ok,Val}=ts_dynvars:lookup(authenticity_token,DynVars),
+                        http_uri:encode(Val) end.">
+          <var name="encoded_authenticity_token" />
       </setdynvars>
 
-      <!-- User creats an event -->
+      <!-- User creates an event -->
       <request subst="true">
-        <http 
-          url="/events" 
-          method="POST" 
-          version="1.1" 
-          contents="authenticity_token=%%_encoded_event_authenticity_token%%&amp;event[name]=%%_rndevent%%&amp;event[date]=2020-12-20&amp;event[time]=08%3A05&amp;event[description]=%%_rndevent%%&amp;commit=Create+Account"
-          content_type="application/x-www-form-urlencoded" 
-        >
+        <http url="/events" method="POST" version="1.1" contents="authenticity_token=%%_encoded_authenticity_token%%&amp;
+                                                                  event%5Bname%5D=Meowathon&amp;event%5Bdate%5D=2020-12-20&amp;
+                                                                  event%5Btime%5D=08%3A05&amp;event%5Bdescription%5D=MeowMeowMeowMeowwwww&amp;commit=Create+Account"
+          content_type="application/x-www-form-urlencoded" >
           <http_header name='Accept-Encoding' value='gzip, deflate' />
         </http>
       </request>
-
-      <!-- User goes to user home page -->
-      <request>
-        <http url='/' version='1.1' method='GET'>
-          <http_header name='Accept-Encoding' value='gzip, deflate' />
-        </http>
-      </request>
-
-      <!-- User matches with some gamers -->
-
-      <!-- User goes to matches page to checkout new matches -->
-
-      <!-- User goes to conversations page to chat with gamers -->
-
-      <!-- User sends a message to one of the gamers -->
-
-      <!-- User log out -->
-
     </session>
   </sessions>
 </tsung>
