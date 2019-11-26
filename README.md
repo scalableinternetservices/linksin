@@ -99,11 +99,16 @@ sudo yum install git
 ```Bash
 git clone https://github.com/scalableinternetservices/linksin.git
 ```
-6. Run load testing script
+6. Make sure the xml files are pointing to the correct URL
+7. Prepare for testing
 ```Bash
-tsung -kf your_load_test_script.xml start
+tsung -kf signup.xml start
 ```
-7. Create plots from tsung log
+8. Run testing script
+```Bash
+tsung -kf critical.xml start
+```
+9. Create plots from tsung log
 ```Bash
 tsplot "First test" firsttest/tsung.log -d outputdir
 ```
@@ -111,7 +116,7 @@ You can also plot two or more logs on the same graph
 ```Bash
 tsplot "First test" firsttest/tsung.log "Second test" secondtest/tsung.log -d outputdir
 ```
-8. Transfer testing result to local machine
+10. Transfer testing result to local machine
 ```Bash
 scp -r -i ~/.ssh/linksin.pem ec2-user@remove_ip_address:your_tsung_log_path_in_remote destination_path_in_your_local_machine
 ```
