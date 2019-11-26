@@ -164,19 +164,19 @@ eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_
 ## Horizontal Scaling
 1. 2 instances
 ```Bash
-eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale 2
+eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --instance_type t3.micro --scale 2
 ```
 2. 4 instances
 ```Bash
-eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale 4
+eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --instance_type t3.micro --scale 4
 ```
 3. 8 instances
 ```Bash
-eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale 8
+eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --instance_type t3.micro --scale 8
 ```
 4. 16 instances
 ```Bash
-eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale 8
+eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --instance_type t3.micro --scale 8
 ```
 5. Check [this](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb3-create.html) for eb create documentation
 
