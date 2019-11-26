@@ -5,7 +5,7 @@
   </clients>
 
   <servers>
-    <server host="linksin-load-testing-xlarge.us-west-2.elasticbeanstalk.com" port="80" type="tcp"/>
+    <server host="linksin-vertical-scaling-xlarge.us-west-2.elasticbeanstalk.com" port="80" type="tcp"/>
   </servers>
 
   <load>

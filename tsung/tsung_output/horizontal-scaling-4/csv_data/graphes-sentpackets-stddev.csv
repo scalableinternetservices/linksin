@@ -1,4 +1,4 @@
-time,sentpackets@tsung_controller@ip-172-31-17-128 
+time,sentpackets@tsung_controller@ip-172-31-29-234 
 10,0 
 20,0.0 
 30,0.0 
@@ -82,10 +82,4 @@ time,sentpackets@tsung_controller@ip-172-31-17-128
 810,0.0 
 820,0.0 
 830,0.0 
-840,0.0 
-850,0.0 
-860,0.0 
-870,0.0 
-880,0.0 
-890,0.0 
-900,0.0 
+838,0.0 
