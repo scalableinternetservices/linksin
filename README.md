@@ -79,7 +79,7 @@ eb init
 ```
 5. Deploy
 ```Bash
-eb create -db.engine postgres -db.i db.t3.micro -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin
+eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --instance_type t3.micro --single 
 ```
 6. Go to [AWS console](https://273020147241.signin.aws.amazon.com/console) to check deployment status
 
@@ -141,42 +141,42 @@ tsung-recorder stop
 ## Vertical Sacling
 1. small
 ```Bash
-eb create -db.engine postgres -db.i db.t3.small -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin
+eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --instance_type t3.small --single 
 ```
 2. medium
 ```Bash
-eb create -db.engine postgres -db.i db.t3.medium -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin
+eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --instance_type t3.medium --single 
 ```
 3. large
 ```Bash
-eb create -db.engine postgres -db.i db.t3.large -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin
+eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --instance_type t3.large --single 
 ```
 4. xlarge
 ```Bash
-eb create -db.engine postgres -db.i db.t3.xlarge -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin
+eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --instance_type t3.xlarge --single 
 ```
 5. 2xlarge
 ```Bash
-eb create -db.engine postgres -db.i db.t3.2xlarge -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin
+eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --instance_type t3.2xlarge --single 
 ```
 6. Check [this](https://aws.amazon.com/ec2/instance-types/) for different instance
 
 ## Horizontal Scaling
 1. 2 instances
 ```Bash
-eb create -db.engine postgres -db.i db.t3.micro -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale 2
+eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale 2
 ```
 2. 4 instances
 ```Bash
-eb create -db.engine postgres -db.i db.t3.micro -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale 4
+eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale 4
 ```
 3. 8 instances
 ```Bash
-eb create -db.engine postgres -db.i db.t3.micro -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale 8
+eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale 8
 ```
 4. 16 instances
 ```Bash
-eb create -db.engine postgres -db.i db.t3.micro -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale 8
+eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_BASE=linksin --scale 8
 ```
 5. Check [this](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb3-create.html) for eb create documentation
 
