@@ -120,6 +120,8 @@ tsplot "First test" firsttest/tsung.log "Second test" secondtest/tsung.log -d ou
 ```Bash
 scp -r -i ~/.ssh/linksin.pem ec2-user@remove_ip_address:your_tsung_log_path_in_remote destination_path_in_your_local_machine
 ```
+11. Check graphes-Transactions-mean.csv for response time data
+12. Check page_mean.png for response time graph
 
 ## How to write test script
 1. Download [Firefox](https://www.mozilla.org/en-US/firefox/)
