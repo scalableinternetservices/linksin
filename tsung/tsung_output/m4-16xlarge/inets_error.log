@@ -1,0 +1,4 @@
+[27/Nov/2019:06:16:07 -0000] access to /robots.txt failed for 157.55.39.16, reason: 
+"httpd_file: Can't access /home/ec2-user/.tsung/log/20191127-0610/robots.txt: File not found"
+[27/Nov/2019:06:16:24 -0000] access to /price-list.html failed for 207.46.13.190, reason: 
+"httpd_file: Can't access /home/ec2-user/.tsung/log/20191127-0610/price-list.html: File not found"
