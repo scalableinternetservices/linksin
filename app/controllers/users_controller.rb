@@ -11,15 +11,15 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @userlist = randomShow(@user).select do |user|
+    @pagy, @users = pagy_countless(User, items: 5)
+    @userlist = @users.shuffle.select do |user|
       conversation = Conversation.between(user.id, @user.id)
-      conversation.empty? 
+      conversation.empty? && (user.id != @user.id)
     end
-    @eventList = User.find(params[:id]).events
   end
 
   def randomShow(user)
-    User.where.not(id: user.id).order("RANDOM()").limit(20)
+    @pagy, @user = pagy(User.all)
   end
 
   def new

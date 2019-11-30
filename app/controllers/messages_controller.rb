@@ -6,7 +6,8 @@ class MessagesController < ApplicationController
   before_action :correct_user
 
   def index
-    @messages = @conversation.messages.paginate(page: params[:page], per_page: 20).order('created_at DESC')
+    @pagy, @messages = pagy(@conversation.messages.order('created_at DESC'))
+    # @messages = @conversation.messages.paginate(page: params[:page], per_page: 20).order('created_at DESC')
     @message = @conversation.messages.new
   end
 

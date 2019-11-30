@@ -1,4 +1,5 @@
 <div class="LI_GamerCardContainer">
+    
   <div id="card_container" class="demo__card-cont">
     <div id="no_gamers" class="LI_NoGamers" hidden>
       <h5>No more gamers to match with 😢</h5>
@@ -18,7 +19,6 @@
       </div>
     <% end %>
   </div>
-  <% if @userlist.length > 0 %>
     <div id="card_action_container" class="LI_GamerCardActionButtonContainer">
       <button class="LI_GamerActionButton LI_Dislike has-background-white-ter">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#08d9d6" d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg>
@@ -27,18 +27,22 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#ff2e63" d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.944z"/></svg>
       </button>
     </div>
-    <% end %>
+</div>
+<div id="scroll-users" style="display: none">
+    <%== pagy_nav @pagy %>   
 </div>
 <script>
     $(document).ready(function() {
 
-        // var numCards = <%= @userlist.length %>;
         var numCards = Math.min(<%= @userlist.length %>, 20);
         var animating = false;
         var decisionVal = 80;
         var pullDeltaX = 0;
         var deg = 0;
         var $card, $cardReject, $cardLike;
+        
+        var appendCnt = 0;
+        var nextPage = 2;
 
         function pullChange() {
             animating = true;
@@ -80,6 +84,20 @@
                 setTimeout(function() {
                     $card.remove();
                     numCards--;
+                    //paginate: get the next card if there is one available
+                    if (numCards <= 2 && nextPage > 0) {
+                        $.ajax({
+                            url: '?page=' + nextPage
+                        }).done(function (result) {
+                            cards = $(result).find("#card_container").children()
+                            $('#card_container').children()[0].remove()
+                            $('#card_container').prepend(cards);
+                            numCards += cards.length - 1;
+                            nextPage++;
+                        }).fail(function () {
+                            nextPage = -1;
+                        });
+                        }
                     if (!numCards) {
                         $("#card_action_container").remove();
                         $("#no_gamers").removeAttr("hidden");

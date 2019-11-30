@@ -30,7 +30,7 @@
   
   <div class="column"  style="height: calc(90vh)">
     <div id="infinite-scrolling" style="display: none">
-      <%= will_paginate %>
+      <%== pagy_nav @pagy %>
     </div>
     <div style="height: 90%; overflow-y: scroll" id="message-window">
       <% @messages.reverse.each do |message| %>
@@ -69,25 +69,25 @@
   
   scrollToBottom();
   
+  var appendCnt = 0;
   var nextPage = 2;
-  var numPages = $('.pagination').children().length - 2;
   var debounce = null;
   var rResult = null;
   $('#message-window').on('scroll', function() {
     clearTimeout(debounce );
     debounce = setTimeout(function(){
+      nextPage = Number.parseInt($('.next').children().attr('href').slice(-1),10);
       next_page_url = '?page=' + nextPage
-      if ((nextPage <= numPages) && $('#message-window').scrollTop() < 60) {
+      if (appendCnt < (nextPage-1) && $('#message-window').scrollTop() < 60) {
         $.ajax({
           url: next_page_url
         }).done(function (result) {
-          var offset = $('#message-window:first');
+          var offset = $('#message-window').children()[0];
           $('#message-window').prepend($(result).find("#message-window").contents());
-          $('#message-window').scrollTop(offset.offset().top);
-          nextPage++;
+          $('#message-window').scrollTop(offset.offsetParent.offsetTop);
         });
+        appendCnt++;
       }
-        console.log("Hi");
     }, 200);
   return
   });

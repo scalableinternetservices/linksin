@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   def index
-  	@events = Event.paginate(page: params[:page])
+    @pagy, @events = pagy(Event)
     @user = User.find(current_user.id)
   end
   def new

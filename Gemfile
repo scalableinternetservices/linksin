@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'rails',      '6.0.0'
 gem 'bcrypt',         '3.1.12'
-gem 'will_paginate',           '3.1.7'
+gem 'pagy', '~> 3.5' # omit patch digit and use the latest if possible
 gem 'puma',       '3.12.1'
 gem 'sass-rails', '5.1.0'
 gem 'webpacker',  '4.0.7'
