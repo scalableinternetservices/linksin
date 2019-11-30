@@ -192,14 +192,12 @@ eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_
 ## Performance Optimization with processes/thereads
 Follow the tutorial [here](https://www.speedshop.co/2017/10/12/appserver.html)
 1. 1 process & 1 thread
-2. 2 processes & 1 thread
-3. 4 processes & 1 thread
-4. 8 processes & 1 thread
-5. 16 processes & 1 thread
-6. 1 process & 2 threads
-7. 1 process & 4 threads
-8. 1 process & 8 threads
-9. 1 process & 16 threads
+2. 16 processes & 1 thread
+3. 1 process & 16 threads
+
+## Read-slave
+Follow the tutorial [here](https://freeletics.engineering/2017/03/06/database-replicas.html)
+1. 1 master & 3 read slaves
 
 # Documentation
 ## Scrum Story
