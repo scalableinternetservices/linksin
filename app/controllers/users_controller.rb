@@ -10,13 +10,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    fresh_when last_modified: @user.updated_at.utc, etag: @user
+    if stale?([@user, @user.updated_at, @user.events])
+      @user = User.find(params[:id])
+    end
     @userlist = randomShow(@user).select do |user|
       conversation = Conversation.between(user.id, @user.id)
       conversation.empty? 
     end
-    @eventList = User.find(params[:id]).events
+    if stale?([@user, @user.updated_at, @user.events])
+      @eventList = User.find(params[:id]).events
+    end
   end
 
   def randomShow(user)
@@ -43,13 +46,18 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
-    fresh_when last_modified: @user.updated_at.utc, etag: @user
+    if stale?([@user, @user.updated_at, @user.events])
+      @user = User.find(params[:id])
+    end
   end
 
   def update
-    @eventList = User.find(params[:id]).events
-    @user = User.find(params[:id])
+    if stale?([@user, @user.updated_at, @user.events])
+      @eventList = User.find(params[:id]).events
+    end
+    if stale?([@user, @user.updated_at, @user.events])
+      @user = User.find(params[:id])
+    end
     fresh_when last_modified: @user.updated_at.utc, etag: @user
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
