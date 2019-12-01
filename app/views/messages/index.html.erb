@@ -31,12 +31,14 @@
   </div>
   <% end %>
   
+  <% cache(Message.cache_key_for_messages) do %>
   <div class="column"  style="height: calc(90vh)">
     <div id="infinite-scrolling" style="display: none">
       <%= will_paginate %>
     </div>
     <div style="height: 90%; overflow-y: scroll" id="message-window">
       <% @messages.reverse.each do |message| %>
+        <% cache(Message.cache_key_for_message(message)) do %>
         <% if message.body %>
           <% user = User.find(message.user_id) %>
           <% if user == current_user %>
@@ -49,6 +51,7 @@
               <div><%= message.body %></div>
             </div>
           </div>
+        <% end %>
         <% end %>
       <% end %>
     </div>
@@ -63,6 +66,7 @@
     </div>
   </div>
 </div>
+<% end %>
 
 <script>
   function scrollToBottom(){
