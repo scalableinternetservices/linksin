@@ -2,16 +2,17 @@ class MessagesController < ApplicationController
   before_action do
     @conversations = Conversation.user(current_user)
     @conversation = Conversation.find(params[:conversation_id])
+    fresh_when([@conversation, @conversation.updated_at.utc])
   end
   before_action :correct_user
 
   def index
     @messages = @conversation.messages.paginate(page: params[:page], per_page: 20).order('created_at DESC')
-    @message = @conversation.messages.new
+    @message = @conversation.messages.new if stale? (Message.all)
   end
 
   def new
-    @message = @conversation.messages.new
+    @message = @conversation.messages.new if stale? (Message.all)
   end
 
   def create

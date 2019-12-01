@@ -2,9 +2,10 @@ class EventsController < ApplicationController
   def index
   	@events = Event.paginate(page: params[:page])
     @user = User.find(current_user.id)
+    fresh_when([@user, @user.updated_at.utc, @user.events])
   end
   def new
-  	@event = Event.new
+  	@event = Event.new if stale?(Event.all)
   end
 
   def create
@@ -21,10 +22,12 @@ class EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
+    fresh_when last_modified: @event.updated_at.utc, etag: @event
   end
 
   def update
     @event = Event.find(params[:id])
+    fresh_when last_modified: @event.updated_at.utc, etag: @event
     if @event.update_attributes(event_params)
       redirect_to @event
     else
@@ -34,6 +37,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    fresh_when last_modified: @event.updated_at.utc, etag: @event
   end
 
   def addEventHost

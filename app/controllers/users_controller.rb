@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new 
+    @user = User.new if stale?(User.all)
     @userlist = []
     @eventList = []
   end
@@ -43,11 +43,13 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    fresh_when last_modified: @user.updated_at.utc, etag: @user
   end
 
   def update
     @eventList = User.find(params[:id]).events
     @user = User.find(params[:id])
+    fresh_when last_modified: @user.updated_at.utc, etag: @user
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
       redirect_to @user
