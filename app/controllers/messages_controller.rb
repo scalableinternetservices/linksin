@@ -2,7 +2,6 @@ class MessagesController < ApplicationController
   before_action do
     @conversations = Conversation.user(current_user)
     @conversation = Conversation.find(params[:conversation_id])
-    fresh_when([@conversation, @conversation.updated_at.utc])
   end
   before_action :correct_user
 
@@ -16,7 +15,7 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = @conversation.messages.new(message_params) if stale? (Message.all)
+    @message = @conversation.messages.new(message_params)
     if @message.save
       redirect_to conversation_messages_path(@conversation)
     end

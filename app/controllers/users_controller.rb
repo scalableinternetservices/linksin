@@ -15,8 +15,9 @@ class UsersController < ApplicationController
       conversation = Conversation.between(user.id, @user.id)
       conversation.empty? 
     end
-    @eventList = User.find(params[:id]).events
-    fresh_when last_modified: @user.updated_at.utc, etag: @event
+    if stale?([Event.all])
+      @eventList = User.find(params[:id]).events
+    end
   end
 
   def randomShow(user)
@@ -24,7 +25,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new if stale?(User.all)
+    @user = User.new
     @userlist = []
     @eventList = []
   end
@@ -44,11 +45,12 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    fresh_when last_modified: @user.updated_at.utc, etag: @user
   end
 
   def update
-    @eventList = User.find(params[:id]).events
+    if stale?([Event.all, User.all])
+      @eventList = User.find(params[:id]).events
+    end
     @user = User.find(params[:id])
     fresh_when last_modified: @user.updated_at.utc, etag: @user
     if @user.update_attributes(user_params)
