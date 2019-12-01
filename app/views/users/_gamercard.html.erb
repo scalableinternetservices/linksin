@@ -4,7 +4,6 @@
       <h5>No more gamers to match with 😢</h5>
     </div>
     <% @userlist.each do |user| %>
-      <% cache(User.cache_key_for_user(user)) do %>
       <div class="demo__card" cardid="<%= user.id %>">
         <div class="demo__card__top">
           <%= gravatar_for user, size: 256, class: "demo__card__img" %>
@@ -17,7 +16,6 @@
         <div class="demo__card__choice m--like"></div>
         <div class="demo__card__drag"></div>
       </div>
-      <% end %>
     <% end %>
   </div>
   <% if @userlist.length >= 0 %>

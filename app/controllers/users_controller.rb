@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(user_params) if stale?(User.all)
     if @user.save
       log_in @user
       flash[:success] = "Welcome to LinksIn! Please create your profile."

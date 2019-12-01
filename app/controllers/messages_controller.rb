@@ -16,7 +16,7 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = @conversation.messages.new(message_params)
+    @message = @conversation.messages.new(message_params) if stale? (Message.all)
     if @message.save
       redirect_to conversation_messages_path(@conversation)
     end

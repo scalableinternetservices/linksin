@@ -9,7 +9,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new(event_params)
+    @event = Event.new(event_params) if stale?(Event.all)
     addEventHost()
     invite_ids = params[:user_ids]
     unless invite_ids.nil?
