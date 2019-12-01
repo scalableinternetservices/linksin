@@ -7,4 +7,12 @@ class Message < ApplicationRecord
     created_at.strftime("%m/%d/%y at %l:%M %p")
   end
 
+  def Message.cache_key_for_message(x)
+    "message-#{x.user_id}-#{x.conversation_id}-#{x.created_at}"
+  end
+
+  def Message.cache_key_for_messages
+    "message-#{Message.maximum(:updated_at)}"
+  end
+
 end

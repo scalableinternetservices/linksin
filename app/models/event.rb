@@ -12,4 +12,12 @@ class Event < ApplicationRecord
     has_many :invitees, source: :user, :through => :guests
     validates_presence_of :description, :date, :time
 
+    def Event.cache_key_for_event(e)
+        "event-#{e.id}-#{e.updated_at}-#{e.members.count}"
+    end
+
+    def Event.cache_key_for_eventList
+        "eventList-#{Event.maximum(:updated_at)}-#{Member.maximum(:updated_at)}"
+    end
+
 end
