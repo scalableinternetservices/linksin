@@ -14,6 +14,12 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  # Cache: FileStore
+  config.cache_store = :file_store, "./tmp"
+
+  # Cache: MemcacheStore
+  # config.cache_store = :mem_cache_store, "ec2-52-35-41-146.us-west-2.compute.amazonaws.com"
+
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true

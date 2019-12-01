@@ -1,8 +1,7 @@
-<% cache(Conversation.cache_key_for_conversations) do %>
 <div class="columns" >
   <div class="column is-3" style="overflow: auto;">
     <% @conversations.each do |conversation| %>
-      <% cache(Conversation.cache_key_for_conversation(conversation)) do %>
+        
         <% if conversation.send_id == current_user.id %>
           <% recipient = User.find(conversation.recv_id) %>
         <% else %>
@@ -26,19 +25,15 @@
             <% end %>
           </div>
         </div>
-        <% end %>
     <% end %>
   </div>
-<% end %>
   
   <div class="column"  style="height: calc(90vh)">
     <div id="infinite-scrolling" style="display: none">
       <%= will_paginate %>
     </div>
-    <% cache(Message.cache_key_for_message) do %>
     <div style="height: 90%; overflow-y: scroll" id="message-window">
       <% @messages.reverse.each do |message| %>
-        <% cache(Message.cache_key_for_message(message)) do %>
         <% if message.body %>
           <% user = User.find(message.user_id) %>
           <% if user == current_user %>
@@ -51,11 +46,9 @@
               <div><%= message.body %></div>
             </div>
           </div>
-          <% end %>
         <% end %>
       <% end %>
     </div>
-    <% end %>
     <div style="bottom: 0; padding-top: 1em">
         <%= form_for [@conversation, @message], html: {class: "field has-addons has-addons-fullwidth"} do |f| %>
           <div class="field control">
