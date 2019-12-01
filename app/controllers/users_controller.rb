@@ -11,12 +11,12 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    fresh_when last_modified: @user.updated_at.utc, etag: @user
     @userlist = randomShow(@user).select do |user|
       conversation = Conversation.between(user.id, @user.id)
       conversation.empty? 
     end
     @eventList = User.find(params[:id]).events
-    fresh_when last_modified: @user.updated_at.utc, etag: @user
   end
 
   def randomShow(user)
