@@ -31,7 +31,6 @@
   </div>
   <% end %>
   
-  <% cache(Message.cache_key_for_messages) do %>
   <div class="column"  style="height: calc(90vh)">
     <div id="infinite-scrolling" style="display: none">
       <%= will_paginate %>
@@ -66,7 +65,6 @@
     </div>
   </div>
 </div>
-<% end %>
 
 <script>
   function scrollToBottom(){
