@@ -2,14 +2,14 @@ class EventsController < ApplicationController
   def index
   	@events = Event.paginate(page: params[:page])
     @user = User.find(current_user.id)
-    fresh_when([@user, @user.updated_at.utc, @user.events])
+    fresh_when last_modified: @user.updated_at.utc, etag: @user
   end
   def new
-  	@event = Event.new if stale?(Event.all)
+  	@event = Event.new
   end
 
   def create
-    @event = Event.new(event_params) if stale?(Event.all)
+    @event = Event.new(event_params)
     addEventHost()
     invite_ids = params[:user_ids]
     unless invite_ids.nil?

@@ -7,11 +7,11 @@ class MessagesController < ApplicationController
 
   def index
     @messages = @conversation.messages.paginate(page: params[:page], per_page: 20).order('created_at DESC')
-    @message = @conversation.messages.new if stale? (Message.all)
+    @message = @conversation.messages.new
   end
 
   def new
-    @message = @conversation.messages.new if stale? (Message.all)
+    @message = @conversation.messages.new
   end
 
   def create

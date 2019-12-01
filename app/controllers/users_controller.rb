@@ -16,7 +16,7 @@ class UsersController < ApplicationController
       conversation.empty? 
     end
     @eventList = User.find(params[:id]).events
-    fresh_when last_modified: @event.updated_at.utc, etag: @event
+    fresh_when last_modified: @user.updated_at.utc, etag: @user
   end
 
   def randomShow(user)
