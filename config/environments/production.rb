@@ -18,8 +18,7 @@ Rails.application.configure do
   endpoint = "linksin-memcache-2.5sqcdv.cfg.usw2.cache.amazonaws.com:11211"
   elasticache = Dalli::ElastiCache.new(endpoint)
   
-  config.cache_store = :dalli_store, elasticache.servers, {:expires_in => 1.day, :compr
-  ess => true}
+  config.cache_store = :dalli_store, elasticache.servers, {:expires_in => 1.day, :compress => true}
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
