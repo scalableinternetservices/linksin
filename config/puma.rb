@@ -39,8 +39,8 @@
 
 # Processes: ec2 default just deploys to 1 process engine- 
 
-workers Integer(8)
-threads_count = Integer(1)
+workers Integer(1)
+threads_count = Integer(8)
 threads threads_count, threads_count
 
 preload_app!
