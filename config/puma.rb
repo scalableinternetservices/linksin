@@ -39,8 +39,8 @@
 
 # Processes: ec2 default just deploys to 1 process engine- 
 
-workers Integer(ENV['WEB_CONCURRENCY'] || 16)
-threads_count = Integer(ENV['RAILS_MAX_THREADS'] || 1)
+workers Integer(1)
+threads_count = Integer(1)
 threads threads_count, threads_count
 
 preload_app!
