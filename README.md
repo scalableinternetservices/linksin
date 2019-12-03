@@ -196,8 +196,15 @@ Follow the tutorial [here](https://www.speedshop.co/2017/10/12/appserver.html)
 3. 1 process & 16 threads
 
 ## Read-slave
-Follow the tutorial [here](https://freeletics.engineering/2017/03/06/database-replicas.html)
-1. 1 master & 3 read slaves
+We will be doing 1 master & 1 read slave for simplicity
+1. Follow the tutorial [here](https://guides.rubyonrails.org/active_record_multiple_databases.html) to make rails perform database read operations from read-slave.
+2. For now, use placeholder for read-slave host name (We will create read slave database on AWS after deployment)
+3. Deploy the application (Check the name of the database created)
+4. Go to [AWS RDS Console](https://us-west-2.console.aws.amazon.com/rds/home?region=us-west-2) and search for the database of the deployed application
+5. Go to top right section and click "create read replica"
+6. Wait for a while until the replicated database is available
+7. Use the endpoint of replicated database as the hostname of the read-slave (update config/puma.rb)
+8. Redeploy the application
 
 # Documentation
 ## Scrum Story
