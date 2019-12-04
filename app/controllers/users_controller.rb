@@ -83,6 +83,7 @@ class UsersController < ApplicationController
   # Confirms the correct user.
   def correct_user
     @user = User.find(params[:id])
+    get_db()
     redirect_to(root_url) unless @user == current_user
   end
 
@@ -95,10 +96,10 @@ class UsersController < ApplicationController
     puts @user.email.downcase.first
     if [('a'..'k')].include? @user.email.downcase.first
       User.connects_to(database: {writing: :primary, reading: :primary})
-    elsif [('l'..'z')].include? @user.email.downcase.first
-      User.connects_to(database: {writing: :secondary, reading: :secondary})
-    else
+    elsif @user.email.downcase.first =~ /[0-9]/
       User.connects_to(database: {writing: :third, reading: :third})
+    else
+      User.connects_to(database: {writing: :secondary, reading: :secondary})
     end
   end
 end
