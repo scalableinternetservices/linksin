@@ -95,8 +95,10 @@ class UsersController < ApplicationController
     puts @user.email.downcase.first
     if [('a'..'k')].include? @user.email.downcase.first
       User.connects_to(database: {writing: :primary, reading: :primary})
-    else
+    elsif [('l'..'z')].include? @user.email.downcase.first
       User.connects_to(database: {writing: :secondary, reading: :secondary})
+    else
+      User.connects_to(database: {writing: :third, reading: :third})
     end
   end
 end
