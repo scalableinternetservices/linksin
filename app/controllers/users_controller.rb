@@ -30,6 +30,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    get_db()
     if @user.save
       log_in @user
       flash[:success] = "Welcome to LinksIn! Please create your profile."
@@ -88,5 +89,14 @@ class UsersController < ApplicationController
   # Confirms an admin user.
   def admin_user
     redirect_to(root_url) unless current_user.admin?
+  end
+
+  def get_db
+    puts @user.email.downcase.first
+    if [('a'..'k')].include? @user.email.downcase.first
+      User.connects_to(database: {writing: :primary, reading: :primary})
+    else
+      User.connects_to(database: {writing: :secondary, reading: :secondary})
+    end
   end
 end
