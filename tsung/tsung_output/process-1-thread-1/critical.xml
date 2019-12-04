@@ -5,7 +5,7 @@
   </clients>
 
   <servers>
-    <server host="linksin-process-1-thread-1.us-west-2.elasticbeanstalk.com" port="80" type="tcp"/>
+    <server host="linksin-11.us-west-2.elasticbeanstalk.com" port="80" type="tcp"/>
   </servers>
 
   <load>
