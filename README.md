@@ -190,10 +190,11 @@ eb create -db.engine postgres -db.user u -db.pass password --envvars SECRET_KEY_
 6. Check [this](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb3-create.html) for eb create documentation
 
 ## Performance Optimization with processes/thereads
-Follow the tutorial [here](https://www.speedshop.co/2017/10/12/appserver.html)
+Setup ebextension to override default puma.rb EC2 provides
 1. 1 process & 1 thread
-2. 16 processes & 1 thread
-3. 1 process & 16 threads
+2. 8 processes & 1 thread
+3. 1 process & 8 threads
+4. 8 processes & 8 threads
 
 ## Read-slave
 We will be doing 1 master & 1 read slave for simplicity
