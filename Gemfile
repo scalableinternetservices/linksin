@@ -12,6 +12,9 @@ gem 'travis',     '1.8.10'
 gem 'turbolinks', '5.2.0'
 gem 'jbuilder',   '2.9.1'
 gem 'bootsnap',   '1.4.4', require: false
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data'
+gem 'nokogiri', '1.10.6'
 
 group :development, :test do
   gem 'sqlite3', '1.4.1'
@@ -40,7 +43,3 @@ group :production do
   gem 'pg', '1.1.4'
   gem 'dalli-elasticache'
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'nokogiri', '1.10.6'
