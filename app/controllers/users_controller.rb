@@ -93,7 +93,6 @@ class UsersController < ApplicationController
   end
 
   def get_db
-    puts @user.email.downcase.first
     if [('a'..'k')].include? @user.email.downcase.first
       User.connects_to(database: {writing: :primary, reading: :primary})
     elsif @user.email.downcase.first =~ /[0-9]/
