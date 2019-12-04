@@ -2,9 +2,9 @@
   <% @conversations.each do |conversation| %>
       <div class="column is-3">
           <% if conversation.send_id == current_user.id %>
-            <% recipient = User.find(conversation.recv_id) %>
+            <% recipient = conversation.recipient %>
           <% else %>
-            <% recipient = User.find(conversation.send_id) %>
+            <% recipient = conversation.sender %>
           <% end %>
   
           <div class="card-container">

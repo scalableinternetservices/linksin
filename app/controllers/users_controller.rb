@@ -10,12 +10,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = get_user(params[:id])
     @userlist = randomShow(@user).select do |user|
       conversation = Conversation.between(user.id, @user.id)
       conversation.empty? 
     end
-    @eventList = User.find(params[:id]).events
   end
 
   def randomShow(user)
@@ -24,8 +23,6 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new 
-    @userlist = []
-    @eventList = []
   end
 
   def create
@@ -38,17 +35,16 @@ class UsersController < ApplicationController
       render 'new'
     end
     @userList = []
-    @eventList = []
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = get_user(params[:id])
   end
 
   def update
-    @eventList = User.find(params[:id]).events
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
+      Rails.cache.delete("#users/#{params[:id]}") #stale, remove
       flash[:success] = "Profile updated"
       redirect_to @user
     else
@@ -57,12 +53,18 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    get_user(params[:id]).destroy
     flash[:success] = "User deleted"
     redirect_to users_url
   end
 
   private
+  
+  def get_user(id)
+    Rails.cache.fetch("#users/#{id}", expires_in: 12.hours) do
+      User.find(id)
+    end
+  end
 
   def user_params
     params.require(:user).permit(:name, :email, :password,
@@ -81,7 +83,7 @@ class UsersController < ApplicationController
 
   # Confirms the correct user.
   def correct_user
-    @user = User.find(params[:id])
+    @user = get_user(params[:id])
     redirect_to(root_url) unless @user == current_user
   end
 

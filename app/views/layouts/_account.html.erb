@@ -7,10 +7,12 @@
       </span>
     </button>
   </div>
+  <% cur_user = current_user %>
+  <% cur_profile = Rails.cache.fetch("users/current_user/profile") do cur_user.profile end %>
   <div class="dropdown-menu" id="dropdown-menu">
     <div class="dropdown-content">
-      <%= link_to "Profile", profile_path(current_user.profile), :class => "dropdown-item" %>
-      <%= link_to "Settings", edit_user_path(current_user), :class => "dropdown-item" %>
+      <%= link_to "Profile", profile_path(cur_profile), :class => "dropdown-item" %>
+      <%= link_to "Settings", edit_user_path(cur_user), :class => "dropdown-item" %>
       <hr class="dropdown-divider">
       <%= link_to "Log out", logout_path, method: :get, :class => "dropdown-item" %>
     </div>

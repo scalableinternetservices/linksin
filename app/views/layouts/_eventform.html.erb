@@ -23,12 +23,11 @@
     </div>
     <div class ="field">
       <%= f.label "invite friends", class: "label" %>
-      <% Conversation.all.each do |conversation| %>
-        <% if (conversation.send_id == current_user.id || conversation.recv_id == current_user.id) && conversation.mutual %>
-            <% if conversation.send_id == current_user.id %>
-              <% recipient = User.find(conversation.recv_id) %>
+      <% @conversations.each do |conversation| %>
+            <% if conversation.sender == current_user %>
+              <% recipient = conversation.recipient %>
             <% else %>
-              <% recipient = User.find(conversation.send_id) %>
+              <% recipient = conversation.sender %>
             <% end %>
             <li class="LI_List">
               <label class="check-container">
@@ -38,7 +37,6 @@
                 <span class="checkmark"></span>
               </label>
             </li>
-        <% end %>
       <% end %>
     </div>
     <div class="field">

@@ -1,11 +1,12 @@
 
 <div class="LI_EventContainer">
-  <% if @user.events.empty? %>
+  <% if @events.empty? %>
     <div class="has-text-centered">
       <p>No events available. Plase create an event.</p>
     </div>
   <% end %>
-  <% @user.events.each do |event| %>
+  <% cur_user = current_user %>
+  <% @events.each do |event| %>
     <div class="card" style="margin-top: 2rem;">
       <div class="card-image">
         <figure class="image is-3by2">
@@ -23,7 +24,7 @@
 
           <div class="media-content">
             <p class="title is-4"><%= event.name %></p>
-            <% if current_user.id == event.host %>
+            <% if cur_user.id == event.host %>
               <p class="subtitle is-6">You created this event</p>
             <% end %>
           </div>
@@ -36,7 +37,7 @@
             <%= event.invitees.length %> users are registered
             <% event.invitees.each do |user| %>
             <li>
-              <% if current_user.id == user.id %>
+              <% if cur_user.id == user.id %>
                 You
               <% else %>
                 <%= user.name %> 

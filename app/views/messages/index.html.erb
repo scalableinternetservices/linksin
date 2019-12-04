@@ -3,9 +3,9 @@
     <% @conversations.each do |conversation| %>
         
         <% if conversation.send_id == current_user.id %>
-          <% recipient = User.find(conversation.recv_id) %>
+          <% recipient = conversation.recipient %>
         <% else %>
-          <% recipient = User.find(conversation.send_id) %>
+          <% recipient = conversation.sender %>
         <% end %>
         
         <% if @conversation == conversation %>
@@ -33,10 +33,11 @@
       <%= will_paginate %>
     </div>
     <div style="height: 90%; overflow-y: scroll" id="message-window">
+      <% cur_user = current_user %>
       <% @messages.reverse.each do |message| %>
         <% if message.body %>
-          <% user = User.find(message.user_id) %>
-          <% if user == current_user %>
+          <% user = message.user %>
+          <% if user == cur_user %>
             <div class="item" style="text-align: right">
           <% else %>
             <div class="item">
