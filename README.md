@@ -61,7 +61,7 @@ rails server
 # Deployment
 1. SSH into AWS server
 ```Bash
-ssh -i ~/.ssh/linksin.pem linksin@ec2-52-35-41-146.us-west-2.compute.amazonaws.com
+ssh -i ~/.ssh/linksin.pem linksin@ec2-34-209-211-32.us-west-2.compute.amazonaws.com
 ```
 2. Clone this repository
 ```Bash
