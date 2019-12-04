@@ -15,7 +15,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
   #replace the endpoint below with the endpoint value you got in step 1
-  endpoint = "linksin-memcache-3.5sqcdv.cfg.usw2.cache.amazonaws.com:11211"
+  endpoint = "linksin-memcache-2.5sqcdv.cfg.usw2.cache.amazonaws.com:11211"
   elasticache = Dalli::ElastiCache.new(endpoint)
   
   config.cache_store = :dalli_store, elasticache.servers, {:expires_in => 1.day, :compress => true}
