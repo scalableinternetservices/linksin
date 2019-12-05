@@ -10,9 +10,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    if stale?([@user, @user.updated_at, @user.events])
-      @user = User.find(params[:id])
-    end
+    @user = User.find(params[:id])
     @userlist = randomShow(@user).select do |user|
       conversation = Conversation.between(user.id, @user.id)
       conversation.empty? 
@@ -44,16 +42,12 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if stale?([@user, @user.updated_at, @user.events])
-      @user = User.find(params[:id])
-    end
+    @user = User.find(params[:id])
   end
 
   def update
     @eventList = User.find(params[:id]).events
-    if stale?([@user, @user.updated_at, @user.events])
-      @user = User.find(params[:id])
-    end
+    @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
       redirect_to @user

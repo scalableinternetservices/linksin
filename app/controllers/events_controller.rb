@@ -20,15 +20,11 @@ class EventsController < ApplicationController
 
 
   def edit
-    if stale?([@event, @event.updated_at])
       @event = Event.find(params[:id])
-    end
   end
 
   def update
-    if stale?([@event, @event.updated_at])
-      @event = Event.find(params[:id])
-    end
+    @event = Event.find(params[:id])
     if @event.update_attributes(event_params)
       redirect_to @event
     else
@@ -37,9 +33,7 @@ class EventsController < ApplicationController
   end
 
   def show
-    if stale?([@event, @event.updated_at])
-      @event = Event.find(params[:id])
-    end
+    @event = Event.find(params[:id])
   end
 
   def addEventHost
