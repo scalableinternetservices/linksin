@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
 
   def show
-    @profile = get_profile(params[:id])
+    @profile = Profile.find(params[:id])
     @user = @profile.user
   end
 
@@ -16,14 +16,13 @@ class ProfilesController < ApplicationController
   end
 
   def edit
-    @profile = get_profile(params[:id])
+    @profile = Profile.find(params[:id])
   end
 
   def update
     @profile = Profile.find(params[:id])
     @user = @profile.user
     if @profile.update_attributes(profile_params)
-      Rails.cache.delete("#profiles/#{params[:id]}")
       flash[:success] = "Profile updated"
       redirect_to @profile
     else
@@ -32,12 +31,6 @@ class ProfilesController < ApplicationController
   end
 
   private
-  
-    def get_profile(id)
-      Rails.cache.fetch("#profiles/#{id}", expires_in: 12.hours) do
-        Profile.find(id)
-      end
-    end
   
     def create_params
       params.require(:profile).permit(:user_id)

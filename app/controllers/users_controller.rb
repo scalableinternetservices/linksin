@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = get_user(params[:id])
+    @user = User.find(params[:id])
     @userlist = randomShow(@user)#.select do |user|
     #   conversation = Conversation.between(user.id, @user.id)
     #   conversation.none? 
@@ -18,13 +18,13 @@ class UsersController < ApplicationController
   end
 
   def randomShow(user)
-   User.find_by_sql('SELECT * FROM users u
-                      WHERE (u.id != 1) AND
+   User.find_by_sql("SELECT * FROM users u
+                      WHERE ((u.id != #{user.id}) AND
                       NOT EXISTS
                       ( SELECT id FROM conversations c WHERE (c.send_id = u.id) OR (c.recv_id = u.id)
-                      );
+                      ))
                       ORDER BY RANDOM()
-                      LIMIT 20')
+                      LIMIT 20;")
     #User.where.not(id: user.id).order("RANDOM()").limit(20)
   end
 
@@ -45,13 +45,12 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = get_user(params[:id])
+    @user = User.find(params[:id])
   end
 
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      Rails.cache.delete("#users/#{params[:id]}") #stale, remove
       flash[:success] = "Profile updated"
       redirect_to @user
     else
@@ -67,11 +66,11 @@ class UsersController < ApplicationController
 
   private
   
-  def get_user(id)
-    Rails.cache.fetch("#users/#{id}", expires_in: 12.hours) do
-      User.find(id)
-    end
-  end
+  # def get_user(id)
+  #   Rails.cache.fetch("#users/#{id}", expires_in: 12.hours) do
+  #     User.find(id)
+  #   end
+  # end
 
   def user_params
     params.require(:user).permit(:name, :email, :password,
@@ -90,7 +89,7 @@ class UsersController < ApplicationController
 
   # Confirms the correct user.
   def correct_user
-    @user = get_user(params[:id])
+    @user = User.find(params[:id])
     redirect_to(root_url) unless @user == current_user
   end
 
