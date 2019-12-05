@@ -38,6 +38,7 @@ end
 
 group :production do
   gem 'pg', '1.1.4'
+  gem 'dalli-elasticache'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
