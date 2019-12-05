@@ -41,7 +41,6 @@ class User < ApplicationRecord
   
   after_create :build_profile
 
-  has_many :microposts
   has_many :guests
   has_many :invites, source: :event, :through => :guests
   has_many :members

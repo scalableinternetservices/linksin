@@ -1,11 +1,12 @@
 <div class="columns" >
+  <% cur_user = current_user %>
   <div class="column is-3" style="overflow: auto;">
     <% @conversations.each do |conversation| %>
         
-        <% if conversation.send_id == current_user.id %>
-          <% recipient = conversation.recipient %>
+        <% if conversation.sender_name_email_only.id == cur_user.id %>
+          <% recipient = conversation.recipient_name_email_only %>
         <% else %>
-          <% recipient = conversation.sender %>
+          <% recipient = conversation.sender_name_email_only %>
         <% end %>
         
         <% if @conversation == conversation %>
@@ -20,8 +21,8 @@
           </div>
           <div class="column">
             <strong><%= link_to recipient.name, conversation_messages_path(conversation)%></strong>
-            <% unless conversation.messages.last.nil? %>
-              <div><em><%= recipient.name == conversation.messages.last.user.name ? recipient.name : "Me" %>: <%=conversation.messages.last.body %></em></div>
+            <% unless conversation.last_message.nil? %>
+              <div><em><%= recipient.name == conversation.last_message.user.name ? recipient.name : "Me" %>: <%=conversation.last_message.body %></em></div>
             <% end %>
           </div>
         </div>
@@ -33,7 +34,6 @@
       <%= will_paginate %>
     </div>
     <div style="height: 90%; overflow-y: scroll" id="message-window">
-      <% cur_user = current_user %>
       <% @messages.reverse.each do |message| %>
         <% if message.body %>
           <% user = message.user %>
@@ -55,7 +55,7 @@
           <div class="field control">
             <%= f.text_field :body, class: "form-control input", placeholder: "Type message here..." %>
           </div>
-            <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
+            <%= f.text_field :user_id, value: cur_user.id, type: "hidden"  %>
             <%= f.submit "Send", class: "button button-primary" %>
         <% end %>
     </div>

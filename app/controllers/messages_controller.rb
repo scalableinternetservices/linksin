@@ -2,9 +2,9 @@ class MessagesController < ApplicationController
   before_action :correct_user
 
   def index
-    @conversations = Conversation.user(current_user).includes([:sender, :recipient, :messages])
+    @conversations = Conversation.user(current_user).includes([:sender_name_email_only, :recipient_name_email_only, :last_message])
     @conversation = Conversation.find(params[:conversation_id])
-    @messages = @conversation.messages.includes(:user).paginate(page: params[:page], per_page: 20).order('created_at DESC')
+    @messages = @conversation.messages.includes(:user_name_only).paginate(page: params[:page], per_page: 20).order('created_at DESC')
     @message = @conversation.messages.new
   end
 

@@ -22,12 +22,13 @@
       <%= f.text_field :description, class: 'input', placeholder: "Description" %>
     </div>
     <div class ="field">
+      <% cur_user = current_user %>
       <%= f.label "invite friends", class: "label" %>
       <% @conversations.each do |conversation| %>
-            <% if conversation.sender == current_user %>
-              <% recipient = conversation.recipient %>
+            <% if conversation.send_id == cur_user.id %>
+              <% recipient = conversation.recipient_name_email_only %>
             <% else %>
-              <% recipient = conversation.sender %>
+              <% recipient = conversation.sender_name_email_only %>
             <% end %>
             <li class="LI_List">
               <label class="check-container">

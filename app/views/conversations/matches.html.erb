@@ -1,7 +1,8 @@
 <div class="columns is-multiline">
+  <% cur_user = current_user %>
   <% @conversations.each do |conversation| %>
       <div class="column is-3">
-          <% if conversation.send_id == current_user.id %>
+          <% if conversation.sender == cur_user %>
             <% recipient = conversation.recipient %>
           <% else %>
             <% recipient = conversation.sender %>

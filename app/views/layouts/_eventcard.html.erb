@@ -31,11 +31,11 @@
         </div>
         <div class="content">
           <p class="is-size-5"><%= event.description %></p>
-          <% if event.users.blank? %>
+          <% if event.users_name_only.empty? %>
             Be the first to register!
           <% else %>
-            <%= event.invitees.length %> users are registered
-            <% event.invitees.each do |user| %>
+            <%= event.invitees_name_only.length %> users are registered
+            <% event.invitees_name_only.each do |user| %>
             <li>
               <% if cur_user.id == user.id %>
                 You
