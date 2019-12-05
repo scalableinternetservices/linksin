@@ -16,9 +16,9 @@ Rails.application.configure do
 
   # Cache: FileStore
   config.cache_store = :mem_cache_store,
-                    (ENV["mc2.c1.us-west-2.ec2.memcachier.com:11211"] || "").split(","),
-                    {:username => ENV["6842D0"],
-                     :password => ENV["C154E30F9AC08AF75AA9D6E58AC90FF9"],
+                    (ENV["MEMCACHIER_SERVERS"] || "").split(","),
+                    {:username => ENV["MEMCACHIER_USERNAME"],
+                     :password => ENV["MEMCACHIER_PASSWORD"],
                      :failover => true,
                      :socket_timeout => 1.5,
                      :socket_failure_delay => 0.2,
