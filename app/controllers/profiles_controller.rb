@@ -53,10 +53,10 @@ class ProfilesController < ApplicationController
 
     # Confirms the correct user.
     def correct_user
-      @user = get_profile(params[:id]).user
+      @user = Profile.find(params[:id]).user
       unless @user == current_user
         flash[:danger] = "Can not edit other users' profiles."
-        redirect_to(get_profile(params[:id])) 
+        redirect_to(Profile.find(params[:id])) 
       end
     end
 end
