@@ -8,7 +8,7 @@ class Message < ApplicationRecord
   end
 
   def Message.cache_key_for_message(x)
-    "message-#{x.user_id}-#{x.conversation_id}-#{x.created_at}"
+    "message-#{x.user_id}-#{x.conversation_id}-#{x.created_at}-#{x.id}"
   end
 
   def Message.cache_key_for_messages
