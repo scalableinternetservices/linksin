@@ -16,14 +16,14 @@ Rails.application.configure do
 
   # Cache: FileStore
   config.cache_store = :mem_cache_store,
-                    (ENV["MEMCACHIER_SERVERS"] || "").split(","),
-                    {:username => ENV["MEMCACHIER_USERNAME"],
-                     :password => ENV["MEMCACHIER_PASSWORD"],
-                     :failover => true,
-                     :socket_timeout => 1.5,
-                     :socket_failure_delay => 0.2,
-                     :down_retry_delay => 60
-                    }
+                      (ENV["MEMCACHIER_SERVERS"] || "").split(","),
+                      {:username => ENV["MEMCACHIER_USERNAME"],
+                      :password => ENV["MEMCACHIER_PASSWORD"],
+                      :failover => true,
+                      :socket_timeout => 1.5,
+                      :socket_failure_delay => 0.2,
+                      :down_retry_delay => 60
+                      }
 
   # Cache: MemcacheStore
   # config.cache_store = :mem_cache_store, "ec2-52-35-41-146.us-west-2.compute.amazonaws.com"
