@@ -15,7 +15,15 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
   # Cache: FileStore
-  config.cache_store = :file_store, "./tmp"
+  config.cache_store = :mem_cache_store,
+                    (ENV["mc2.c1.us-west-2.ec2.memcachier.com:11211"] || "").split(","),
+                    {:username => ENV["6842D0"],
+                     :password => ENV["C154E30F9AC08AF75AA9D6E58AC90FF9"],
+                     :failover => true,
+                     :socket_timeout => 1.5,
+                     :socket_failure_delay => 0.2,
+                     :down_retry_delay => 60
+                    }
 
   # Cache: MemcacheStore
   # config.cache_store = :mem_cache_store, "ec2-52-35-41-146.us-west-2.compute.amazonaws.com"

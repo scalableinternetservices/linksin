@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  caches_action :show
   skip_before_action :verify_authenticity_token
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update, :show]
@@ -11,6 +12,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    fresh_when(:etag => @article, :last_modified => @article.created_at.utc, :public => true)
     @userlist = randomShow(@user).select do |user|
       conversation = Conversation.between(user.id, @user.id)
       conversation.empty? 
@@ -46,6 +48,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    expire_action :action => :show
     @eventList = User.find(params[:id]).events
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
@@ -57,6 +60,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    expire_action :action => :show
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
     redirect_to users_url
