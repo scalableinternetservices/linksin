@@ -18,7 +18,6 @@ class EventsController < ApplicationController
     end
   end
 
-
   def edit
     if stale?([@event, @event.updated_at])
       @event = Event.find(params[:id])
