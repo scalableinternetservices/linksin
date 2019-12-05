@@ -1,8 +1,12 @@
 class EventsController < ApplicationController
   def index
-  	@events = Event.paginate(page: params[:page])
-    @user = User.find(current_user.id)
-    fresh_when last_modified: @user.updated_at.utc, etag: @user
+    @events = Event.paginate(page: params[:page])
+    Rails.cache.fetch(User.cache_key_for_user(@user), expires_in: 2.minutes) do
+        if stale?([@user, @user.updated_at, @user.events])
+          @user = User.find(current_user.id)
+          #fresh_when(last_modified: @user.updated_at.utc, etag: @user)
+        end
+    end
   end
   def new
   	@event = Event.new
@@ -21,13 +25,21 @@ class EventsController < ApplicationController
 
 
   def edit
-    @event = Event.find(params[:id])
-    fresh_when last_modified: @event.updated_at.utc, etag: @event
+    Rails.cache.fetch(Event.cache_key_for_event(@event), expires_in: 2.minutes) do
+        if stale?([@event, @event.updated_at, @event.host])
+          @event = Event.find(params[:id])
+        #fresh_when(last_modified: @event.updated_at.utc, etag: @event)
+        end
+    end
   end
 
   def update
-    @event = Event.find(params[:id])
-    fresh_when last_modified: @event.updated_at.utc, etag: @event
+    Rails.cache.fetch(Event.cache_key_for_event(@event), expires_in: 2.minutes) do
+        if stale?([@event, @event.updated_at, @event.host])
+          @event = Event.find(params[:id])
+          #fresh_when(last_modified: @event.updated_at.utc, etag: @event)
+        end
+    end
     if @event.update_attributes(event_params)
       redirect_to @event
     else
@@ -36,8 +48,12 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find(params[:id])
-    fresh_when last_modified: @event.updated_at.utc, etag: @event
+    Rails.cache.fetch(Event.cache_key_for_event(@event), expires_in: 2.minutes) do
+        if stale?([@event, @event.update_at, @event.host])
+          @event = Event.find(params[:id])
+          #fresh_when last_modified: @event.updated_at.utc, etag: @event
+        end
+    end
   end
 
   def addEventHost

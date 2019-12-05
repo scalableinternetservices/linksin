@@ -17,9 +17,7 @@ class UsersController < ApplicationController
       conversation = Conversation.between(user.id, @user.id)
       conversation.empty? 
     end
-    if stale?([@user, @user.updated_at, @user.events])
-      @eventList = User.find(params[:id]).events
-    end
+    @eventList = User.find(params[:id]).events
   end
 
   def randomShow(user)
@@ -27,7 +25,7 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new if stale?(User.all)
+    @user = User.new
     @userlist = []
     @eventList = []
   end
@@ -46,19 +44,22 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if stale?([@user, @user.updated_at, @user.events])
-      @user = User.find(params[:id])
+    Rails.cache.fetch(User.cache_key_for_user(@user), expires_in: 2.minutes) do
+    #if stale?([@user, @user.updated_at, @user.events])
+      if stale?([@user, @user.updated_at, @user.events])
+        @user = User.find(params[:id])
+      end
     end
   end
 
   def update
-    if stale?([@user, @user.updated_at, @user.events])
-      @eventList = User.find(params[:id]).events
+    @eventList = User.find(params[:id]).events
+    Rails.cache.fetch(User.cache_key_for_user(@user), expires_in: 2.minutes) do
+      if stale?([@user, @user.updated_at, @user.events])
+        @user = User.find(params[:id])
+      end
+     #fresh_when last_modified: @user.updated_at.utc, etag: @user
     end
-    if stale?([@user, @user.updated_at, @user.events])
-      @user = User.find(params[:id])
-    end
-    fresh_when last_modified: @user.updated_at.utc, etag: @user
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
       redirect_to @user
@@ -93,6 +94,7 @@ class UsersController < ApplicationController
   # Confirms the correct user.
   def correct_user
     @user = User.find(params[:id])
+    fresh_when(last_modified: @user.updated_at, etag: @user)
     redirect_to(root_url) unless @user == current_user
   end
 

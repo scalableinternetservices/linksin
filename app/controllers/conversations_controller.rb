@@ -3,6 +3,7 @@ class ConversationsController < ApplicationController
   
   def matches
     @users = User.all
+      User.all
     @conversations = Conversation.user(current_user)
   end
 
