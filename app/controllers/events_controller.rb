@@ -1,8 +1,9 @@
 class EventsController < ApplicationController
   def index
-  	@events = Event.paginate(page: params[:page])
-    @user = User.find(current_user.id)
-    fresh_when last_modified: @user.updated_at.utc, etag: @user
+    @events = Event.paginate(page: params[:page])
+    if stale?([@user, @user.updated_at])
+      @user = User.find(current_user.id)
+    end
   end
   def new
   	@event = Event.new
@@ -21,13 +22,15 @@ class EventsController < ApplicationController
 
 
   def edit
-    @event = Event.find(params[:id])
-    fresh_when last_modified: @event.updated_at.utc, etag: @event
+    if stale?([@event, @event.updated_at])
+      @event = Event.find(params[:id])
+    end
   end
 
   def update
-    @event = Event.find(params[:id])
-    fresh_when last_modified: @event.updated_at.utc, etag: @event
+    if stale?([@event, @event.updated_at])
+      @event = Event.find(params[:id])
+    end
     if @event.update_attributes(event_params)
       redirect_to @event
     else
@@ -36,8 +39,9 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find(params[:id])
-    fresh_when last_modified: @event.updated_at.utc, etag: @event
+    if stale?([@event, @event.updated_at])
+      @event = Event.find(params[:id])
+    end
   end
 
   def addEventHost
