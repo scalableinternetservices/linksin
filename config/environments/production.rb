@@ -14,7 +14,8 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  endpoint = "linksin-memcache-2.5sqcdv.cfg.usw2.cache.amazonaws.com:11211" elasticache = Dalli::ElastiCache.new(endpoint) 
+  endpoint = "linksin-memcache-2.5sqcdv.cfg.usw2.cache.amazonaws.com:11211" 
+  elasticache = Dalli::ElastiCache.new(endpoint) 
   config.cache_store = :dalli_store, elasticache.servers, {:expires_in => 1.day, :compress => true, :pool_size => 8}
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
