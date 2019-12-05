@@ -14,10 +14,16 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  endpoint = "ln-memcache.5sqcdv.cfg.usw2.cache.amazonaws.com:11211" 
-  elasticache = Dalli::ElastiCache.new(endpoint) 
-  config.cache_store = :dalli_store, elasticache.servers, {:expires_in => 1.day, :compress => true, :pool_size => 8}
-
+  config.cache_store = :mem_cache_store,
+  (ENV["MEMCACHIER_SERVERS"] || "").split(","),
+  {:username => ENV["MEMCACHIER_USERNAME"],
+   :password => ENV["MEMCACHIER_PASSWORD"],
+   :failover => true,
+   :socket_timeout => 1.5,
+   :socket_failure_delay => 0.2,
+   :down_retry_delay => 60
+  }
+  
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
