@@ -1,9 +1,7 @@
 class EventsController < ApplicationController
   def index
     @events = Event.paginate(page: params[:page])
-    if stale?([@user, @user.updated_at])
-      @user = User.find(current_user.id)
-    end
+    @user = User.find(current_user.id)
   end
   def new
   	@event = Event.new

@@ -15,7 +15,7 @@ class Conversation < ApplicationRecord
   end
 
   def Conversation.cache_key_for_conversation(x)
-    "conversation-#{x.send_id}-#{x.recv_id}-#{x.updated_at}"
+    "conversation-#{x.send_id}-#{x.recv_id}-#{x.updated_at}-#{x.id}"
   end
 
   def Conversation.cache_key_for_conversations
