@@ -2,7 +2,7 @@ class ConversationsController < ApplicationController
   before_action :current_user
   
   def matches
-    @conversations = Conversation.user(current_user)#.includes([:sender => :profile, :recipient => :profile])
+    @conversations = Conversation.user(current_user).includes([:sender => :profile, :recipient => :profile])
   end
 
   def index

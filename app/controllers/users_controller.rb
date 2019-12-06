@@ -18,13 +18,20 @@ class UsersController < ApplicationController
   end
 
   def randomShow(user)
-   User.find_by_sql("SELECT * FROM users u
-                      WHERE ((u.id != #{user.id}) AND
-                      NOT EXISTS
-                      ( SELECT id FROM conversations c WHERE (c.send_id = u.id) OR (c.recv_id = u.id)
-                      ))
+   User.find_by_sql ["SELECT * FROM users u
+                      WHERE (
+                        (u.id != ?) AND
+                        u.id NOT IN ( 
+                          SELECT c.send_id
+                          FROM conversations c 
+                        ) AND
+                        u.id NOT IN ( 
+                          SELECT c.recv_id
+                          FROM conversations c 
+                        )
+                      )
                       ORDER BY RANDOM()
-                      LIMIT 20;")
+                      LIMIT 20;", user.id]
     #User.where.not(id: user.id).order("RANDOM()").limit(20)
   end
 
