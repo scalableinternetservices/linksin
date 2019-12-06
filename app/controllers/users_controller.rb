@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @userlist = randomShow(@user).select do |user|
       conversation = Conversation.between(user.id, @user.id)
-      conversation.empty? || !conversation.first.mutual
+      conversation.empty? || (conversation.first.send_id != @user.id && !conversation.first.mutual)
     end
     @eventList = User.find(params[:id]).events
   end
